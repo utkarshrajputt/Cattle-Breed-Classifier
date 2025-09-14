@@ -285,139 +285,172 @@ def main():
                             <p style="font-size:1.2em; margin:5px 0 0 0;">Confidence: {top_conf:.2%}</p>
                         </div>
                         """, unsafe_allow_html=True)
+                        
+                        # Display all predictions with clearer formatting
+                        st.markdown("### All Predictions:")
+                        
+                        for i, (breed, conf) in enumerate(zip(breeds, confidences)):
+                            # Highlight the top prediction differently
+                            if i == 0:
+                                st.markdown(f"""
+                                <div class="prediction-card prediction-primary">
+                                    <p class="dark-mode-compatible" style="font-size:1.1em; margin:0"><strong>{breed.title()}</strong> - {conf:.2%}</p>
+                                </div>
+                                """, unsafe_allow_html=True)
+                            else:
+                                st.markdown(f"""
+                                <div class="prediction-card prediction-secondary">
+                                    <p class="dark-mode-compatible" style="font-size:1.1em; margin:0"><strong>{breed.title()}</strong> - {conf:.2%}</p>
+                                </div>
+                                """, unsafe_allow_html=True)
+                        
+                        # Create and display improved bar chart
+                        fig, ax = plt.subplots(figsize=(8, 4))
+                        y_pos = range(len(breeds))
+                        
+                        # Use different colors for the bars based on validation
+                        colors = ['#0068c9', '#fa4b42'][:len(breeds)]
                     else:
                         # Display warning for non-cattle images with detailed metrics
                         st.markdown(f"""
-                        <div style="background-color:#FF5151; padding:15px; border-radius:10px; margin-bottom:20px">
-                            <h3 style="color:white; margin:0;">⚠️ Not a Recognized Cattle Breed</h3>
-                            <p style="color:white; font-size:1.2em; margin:5px 0 0 0;">
+                        <div style="background-color:#FF5151; padding:25px; border-radius:10px; margin-bottom:20px">
+                            <h2 style="color:white; margin:0; text-align:center;">⚠️ Not a Recognized Cattle Breed</h2>
+                            <p style="color:white; font-size:1.4em; margin:15px 0 0 0; text-align:center;">
                                 This image doesn't appear to be one of the cattle breeds this model was trained on.
                             </p>
-                            <p style="color:white; font-size:0.9em; margin:10px 0 0 0;">
-                                Confidence: {top_conf:.2%}, Prediction ratio: {prediction_result.get('prediction_ratio', 0):.2f}
+                            <hr style="border-color:rgba(255,255,255,0.3); margin:20px 0;">
+                            <p style="color:white; font-size:1.0em; margin:10px 0 0 0;">
+                                This model is specifically trained to identify Gir and Murrah cattle breeds.
+                                For best results, please upload clear images of these cattle breeds.
                             </p>
                         </div>
                         """, unsafe_allow_html=True)
+                        
+                        # Add sample images section for non-cattle images
+                        st.markdown("""
+                        <div style="margin-top:30px; padding:15px; background-color:rgba(128, 128, 128, 0.1); border-radius:10px;">
+                            <h3 style="text-align:center;">Sample Images</h3>
+                            <p style="text-align:center;">Here are examples of cattle breeds this model can identify:</p>
+                        </div>
+                        """, unsafe_allow_html=True)
+                        
+                        # Display sample images
+                        sample_col1, sample_col2 = st.columns(2)
+                        with sample_col1:
+                            st.markdown("<h4 style='text-align:center;'>Gir</h4>", unsafe_allow_html=True)
+                            if os.path.exists("data/train/gir/Gir1.jpg"):
+                                st.image("data/train/gir/Gir1.jpg", caption="Sample Gir breed")
+                        with sample_col2:
+                            st.markdown("<h4 style='text-align:center;'>Murrah</h4>", unsafe_allow_html=True)
+                            if os.path.exists("data/train/murrah/mur1.jpg"):
+                                st.image("data/train/murrah/mur1.jpg", caption="Sample Murrah breed")
+                        
+                        # Add a button to try again
+                        st.markdown("<div style='text-align:center; margin-top:20px;'>", unsafe_allow_html=True)
+                        if st.button("Try Again with a Different Image", use_container_width=True):
+                            st.experimental_rerun()
+                        st.markdown("</div>", unsafe_allow_html=True)
+                        
+                        # Don't show predictions or charts for non-cattle images
                     
-                    # Display all predictions with clearer formatting
-                    st.markdown("### All Predictions:")
-                    
-                    for i, (breed, conf) in enumerate(zip(breeds, confidences)):
-                        # Highlight the top prediction differently
-                        if i == 0:
-                            st.markdown(f"""
-                            <div class="prediction-card prediction-primary">
-                                <p class="dark-mode-compatible" style="font-size:1.1em; margin:0"><strong>{breed.title()}</strong> - {conf:.2%}</p>
-                            </div>
-                            """, unsafe_allow_html=True)
-                        else:
-                            st.markdown(f"""
-                            <div class="prediction-card prediction-secondary">
-                                <p class="dark-mode-compatible" style="font-size:1.1em; margin:0"><strong>{breed.title()}</strong> - {conf:.2%}</p>
-                            </div>
-                            """, unsafe_allow_html=True)
-                    
-                    # Create and display improved bar chart
-                    fig, ax = plt.subplots(figsize=(8, 4))
-                    y_pos = range(len(breeds))
-                    
-                    # Use different colors for the bars based on validation
+                    # Only create and display chart for valid cattle images
                     if is_valid_cattle:
-                        colors = ['#0068c9', '#fa4b42'][:len(breeds)]
-                    else:
-                        colors = ['#FF5151', '#FF7F7F'][:len(breeds)]
+                        # Create horizontal bar chart with thicker bars
+                        bars = ax.barh(y_pos, [conf * 100 for conf in confidences], color=colors, height=0.5)
+                        
+                        # Add percentage annotations to the bars
+                        for i, bar in enumerate(bars):
+                            width = bar.get_width()
+                            ax.text(width + 1, bar.get_y() + bar.get_height()/2, 
+                                    f'{confidences[i]:.2%}', ha='left', va='center', fontsize=12, fontweight='bold')
+                        
+                        # Set chart properties with better formatting
+                        ax.set_yticks(y_pos)
+                        ax.set_yticklabels([breed.title() for breed in breeds], fontsize=12)
+                        ax.set_xlabel('Confidence (%)', fontsize=12)
+                        ax.set_title('Breed Prediction Confidence', fontsize=14, fontweight='bold')
+                        ax.spines['top'].set_visible(False)
+                        ax.spines['right'].set_visible(False)
+                        ax.grid(axis='x', linestyle='--', alpha=0.7)
+                        
+                        # Adjust x-axis limit to ensure annotations fit
+                        ax.set_xlim(0, 110)
                     
-                    # Create horizontal bar chart with thicker bars
-                    bars = ax.barh(y_pos, [conf * 100 for conf in confidences], color=colors, height=0.5)
+                        # Add threshold line at 85% to indicate confidence threshold
+                        ax.axvline(x=85, color='red', linestyle='--', alpha=0.7)
+                        ax.text(86, -0.4, 'Threshold (85%)', color='white', fontsize=10, alpha=0.8)
+                        
+                        # Create a chart that works well in both light and dark modes
+                        # Use darker colors that will be visible on both backgrounds
+                        
+                        # Set a transparent background for the figure 
+                        # Use tuple format (R, G, B, A) with values from 0 to 1
+                        text_color = '#FFFFFF'  # White text for visibility on dark backgrounds
+                        grid_color = '#666666'  # Medium gray grid
+                        
+                        # Use transparent background (properly formatted for matplotlib)
+                        fig.patch.set_facecolor('none')  # Transparent background
+                        ax.set_facecolor((0.1, 0.1, 0.1, 0.1))  # Very slight darkening
+                        
+                        # Use high-contrast colors for text and labels that will be visible in any mode
+                        # Keep the original colors of the bars which have good contrast already
+                        
+                        # Set tick parameters with more visible colors
+                        ax.tick_params(axis='both', colors='white')
+                        
+                        # Make axes labels more visible
+                        ax.xaxis.label.set_color('white')
+                        ax.yaxis.label.set_color('white')
+                        ax.title.set_color('white')
+                        
+                        # Ensure all text in the chart is visible
+                        for text in ax.texts:
+                            text.set_color('white')
+                        
+                        # Set grid with visible lines
+                        ax.grid(axis='x', linestyle='--', alpha=0.5, color='#888888')
+                        
+                        # Show the chart
+                        st.pyplot(fig)
                     
-                    # Add percentage annotations to the bars
-                    for i, bar in enumerate(bars):
-                        width = bar.get_width()
-                        ax.text(width + 1, bar.get_y() + bar.get_height()/2, 
-                                f'{confidences[i]:.2%}', ha='left', va='center', fontsize=12, fontweight='bold')
-                    
-                    # Set chart properties with better formatting
-                    ax.set_yticks(y_pos)
-                    ax.set_yticklabels([breed.title() for breed in breeds], fontsize=12)
-                    ax.set_xlabel('Confidence (%)', fontsize=12)
-                    ax.set_title('Breed Prediction Confidence', fontsize=14, fontweight='bold')
-                    ax.spines['top'].set_visible(False)
-                    ax.spines['right'].set_visible(False)
-                    ax.grid(axis='x', linestyle='--', alpha=0.7)
-                    
-                    # Adjust x-axis limit to ensure annotations fit
-                    ax.set_xlim(0, 110)
-                    
-                    # Add threshold line at 85% to indicate confidence threshold
-                    ax.axvline(x=85, color='red', linestyle='--', alpha=0.7)
-                    ax.text(86, -0.4, 'Threshold (85%)', color='white', fontsize=10, alpha=0.8)
-                    
-                    # Create a chart that works well in both light and dark modes
-                    # Use darker colors that will be visible on both backgrounds
-                    
-                    # Set a transparent background for the figure 
-                    # Use tuple format (R, G, B, A) with values from 0 to 1
-                    text_color = '#FFFFFF'  # White text for visibility on dark backgrounds
-                    grid_color = '#666666'  # Medium gray grid
-                    
-                    # Use transparent background (properly formatted for matplotlib)
-                    fig.patch.set_facecolor('none')  # Transparent background
-                    ax.set_facecolor((0.1, 0.1, 0.1, 0.1))  # Very slight darkening
-                    
-                    # Use high-contrast colors for text and labels that will be visible in any mode
-                    # Keep the original colors of the bars which have good contrast already
-                    
-                    # Set tick parameters with more visible colors
-                    ax.tick_params(axis='both', colors='white')
-                    
-                    # Make axes labels more visible
-                    ax.xaxis.label.set_color('white')
-                    ax.yaxis.label.set_color('white')
-                    ax.title.set_color('white')
-                    
-                    # Ensure all text in the chart is visible
-                    for text in ax.texts:
-                        text.set_color('white')
-                    
-                    # Set grid with visible lines
-                    ax.grid(axis='x', linestyle='--', alpha=0.5, color='#888888')
-                    
-                    # Show the chart
-                    st.pyplot(fig)
-                    
-                    # Add "Save Record" button with enhanced styling for dark mode compatibility
-                    st.markdown("<hr style='margin: 30px 0; opacity: 0.3;'>", unsafe_allow_html=True)
-                    st.markdown("<h3 class='dark-mode-compatible' style='margin-bottom:15px;'>Save Prediction Results</h3>", unsafe_allow_html=True)
-                    
-                    col_btn1, col_btn2 = st.columns([1, 2])
-                    with col_btn1:
-                        if st.button("📋 Save Record (BPA Integration)", use_container_width=True, type="primary"):
-                            csv_file = save_to_csv(prediction_result, image)
-                            st.success(f"✅ Record saved successfully!")
+                    # Add "Save Record" button only for valid cattle images
+                    if is_valid_cattle:
+                        st.markdown("<hr style='margin: 30px 0; opacity: 0.3;'>", unsafe_allow_html=True)
+                        st.markdown("<h3 class='dark-mode-compatible' style='margin-bottom:15px;'>Save Prediction Results</h3>", unsafe_allow_html=True)
+                        
+                        col_btn1, col_btn2 = st.columns([1, 2])
+                        with col_btn1:
+                            if st.button("📋 Save Record (BPA Integration)", use_container_width=True, type="primary"):
+                                csv_file = save_to_csv(prediction_result, image)
+                                st.success(f"✅ Record saved successfully!")
                             
-                            # Show latest records
-                            if os.path.exists(csv_file):
-                                st.markdown("<h4 class='dark-mode-compatible' style='margin:20px 0 10px 0;'>Recent Records</h4>", unsafe_allow_html=True)
-                                df = pd.read_csv(csv_file)
-                                
-                                # Format the dataframe for better display
-                                display_df = df.tail(5)[['Timestamp', 'Image_Filename', 'Primary_Breed', 'Primary_Confidence']]
-                                display_df = display_df.rename(columns={
-                                    'Timestamp': 'Date & Time',
-                                    'Image_Filename': 'Image',
-                                    'Primary_Breed': 'Breed',
-                                    'Primary_Confidence': 'Confidence'
-                                })
-                                
-                                # Format confidence as percentage
-                                display_df['Confidence'] = display_df['Confidence'].apply(lambda x: f"{x:.2%}")
-                                
-                                # Display styled dataframe
-                                st.dataframe(
-                                    display_df,
-                                    use_container_width=True,
-                                    hide_index=True
-                                )
+                                # Show latest records
+                                if os.path.exists(csv_file):
+                                    st.markdown("<h4 class='dark-mode-compatible' style='margin:20px 0 10px 0;'>Recent Records</h4>", unsafe_allow_html=True)
+                                    df = pd.read_csv(csv_file)
+                                    
+                                    # Filter to only show valid cattle records
+                                    if 'Valid_Cattle' in df.columns:
+                                        df = df[df['Valid_Cattle'] == True]
+                                    
+                                    # Format the dataframe for better display
+                                    display_df = df.tail(5)[['Timestamp', 'Image_Filename', 'Primary_Breed', 'Primary_Confidence']]
+                                    display_df = display_df.rename(columns={
+                                        'Timestamp': 'Date & Time',
+                                        'Image_Filename': 'Image',
+                                        'Primary_Breed': 'Breed',
+                                        'Primary_Confidence': 'Confidence'
+                                    })
+                                    
+                                    # Format confidence as percentage
+                                    display_df['Confidence'] = display_df['Confidence'].apply(lambda x: f"{x:.2%}")
+                                    
+                                    # Display styled dataframe
+                                    st.dataframe(
+                                        display_df,
+                                        use_container_width=True,
+                                        hide_index=True
+                                    )
             
             except Exception as e:
                 st.error(f"Error during prediction: {str(e)}")
