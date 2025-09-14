@@ -1,0 +1,3 @@
+Timestamp,Image_Filename,Primary_Breed,Primary_Confidence,Secondary_Breed,Secondary_Confidence,Valid_Cattle
+2025-09-14 19:05:44,Gir1.jpg,gir,0.9979984164237976,murrah,0.0020015416666865,
+2025-09-15 01:12:50,Gir1.jpg,gir,0.9979984164237976,murrah,0.002001541666686535,True
