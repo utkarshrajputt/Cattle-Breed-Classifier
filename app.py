@@ -113,11 +113,14 @@ def main():
     <style>
     .main-header {
         text-align: center;
-        background-color: #0068c9;
-        padding: 15px;
+        background: linear-gradient(135deg, #0068c9 0%, #004c9c 100%);
+        padding: 25px;
         color: white !important;
-        border-radius: 10px;
-        margin-bottom: 20px;
+        border-radius: 15px;
+        margin-bottom: 25px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        font-size: 1.8em;
+        font-weight: bold;
     }
     .sub-header {
         font-size: 1.3em;
@@ -163,11 +166,12 @@ def main():
     """, unsafe_allow_html=True)
     
     # Title and description with enhanced styling that works in dark mode
-    st.markdown("<h1 class='main-header'>AI-Based Cattle Breed Identification</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 class='main-header'>AI-Based Breed Identification System for Cattle and Buffaloes</h1>", unsafe_allow_html=True)
     st.markdown("""
     <div class='sub-header'>
-        <p>This application uses a deep learning model to identify cattle breeds from images.</p>
-        <p>Upload an image of cattle, and the AI will analyze and predict the breed with confidence scores.</p>
+        <p>This application uses a deep learning CNN model to identify cattle and buffalo breeds from images.</p>
+        <p>Upload an image of cattle or buffalo, and the AI will analyze and predict the breed with confidence scores.</p>
+        <p><strong>Integration Ready:</strong> Designed for Bharat Pashudhan App (BPA) data standards</p>
     </div>
     """, unsafe_allow_html=True)
     
@@ -182,17 +186,18 @@ def main():
         st.markdown("<h2 style='text-align: center; color: #0068c9;'>About</h2>", unsafe_allow_html=True)
         st.markdown("""
         <div class="info-box" style="border-left: 4px solid #0068c9;">
-            <p class="dark-mode-compatible">This application uses a MobileNetV2-based model trained on Gir and Murrah cattle breeds. 
-            Upload an image to get instant breed predictions with confidence scores.</p>
+            <p class="dark-mode-compatible">This application uses a MobileNetV2-based CNN model trained on cattle and buffalo breeds (Gir cattle and Murrah buffalo). 
+            Upload an image to get instant breed predictions with confidence scores. Designed for BPA integration.</p>
         </div>
         """, unsafe_allow_html=True)
         
         st.markdown("<h2 style='text-align: center; color: #0068c9; margin-top: 25px;'>Model Information</h2>", unsafe_allow_html=True)
         st.markdown("""
         <div class="info-box">
-            <p class="dark-mode-compatible"><strong>🔹 Model:</strong> MobileNetV2 (Transfer Learning)</p>
-            <p class="dark-mode-compatible"><strong>🔹 Classes:</strong> Gir, Murrah</p>
+            <p class="dark-mode-compatible"><strong>🔹 Model:</strong> CNN-based (MobileNetV2 Transfer Learning)</p>
+            <p class="dark-mode-compatible"><strong>🔹 Classes:</strong> Gir (Cattle), Murrah (Buffalo)</p>
             <p class="dark-mode-compatible"><strong>🔹 Input Size:</strong> 224×224 pixels</p>
+            <p class="dark-mode-compatible"><strong>🔹 BPA Ready:</strong> Standardized data format</p>
         </div>
         """, unsafe_allow_html=True)
         
@@ -211,7 +216,7 @@ def main():
     
     # File upload - inside the Image Classification tab
     with tab1:
-        uploaded_file = st.file_uploader("Upload an image of cattle", type=["jpg", "jpeg", "png"])
+        uploaded_file = st.file_uploader("Upload an image of cattle or buffalo", type=["jpg", "jpeg", "png"])
         
         if uploaded_file is not None:
             # Display the uploaded image
@@ -286,21 +291,32 @@ def main():
                         </div>
                         """, unsafe_allow_html=True)
                         
-                        # Display all predictions with clearer formatting
-                        st.markdown("### All Predictions:")
+                        # Display all predictions with professional styling
+                        st.markdown("<h3 style='margin: 25px 0 15px 0; color: #2c3e50;'>🎯 Classification Results:</h3>", unsafe_allow_html=True)
                         
                         for i, (breed, conf) in enumerate(zip(breeds, confidences)):
-                            # Highlight the top prediction differently
+                            # Determine breed type
+                            breed_type = "(Cattle)" if breed.lower() == "gir" else "(Buffalo)"
+                            
+                            # Highlight the top prediction differently with better styling
                             if i == 0:
                                 st.markdown(f"""
-                                <div class="prediction-card prediction-primary">
-                                    <p class="dark-mode-compatible" style="font-size:1.1em; margin:0"><strong>{breed.title()}</strong> - {conf:.2%}</p>
+                                <div style="background: linear-gradient(135deg, #0068c9 0%, #004c9c 100%);
+                                           padding: 15px; border-radius: 12px; margin: 10px 0;
+                                           box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 5px solid #FFD700;">
+                                    <p style="color: white; font-size: 1.3em; margin: 0; font-weight: bold;">
+                                        {breed.title()} {breed_type} - {conf:.1%}
+                                    </p>
                                 </div>
                                 """, unsafe_allow_html=True)
                             else:
                                 st.markdown(f"""
-                                <div class="prediction-card prediction-secondary">
-                                    <p class="dark-mode-compatible" style="font-size:1.1em; margin:0"><strong>{breed.title()}</strong> - {conf:.2%}</p>
+                                <div style="background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+                                           padding: 12px; border-radius: 10px; margin: 8px 0;
+                                           box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                                    <p style="color: white; font-size: 1.1em; margin: 0; font-weight: 600;">
+                                        {breed.title()} {breed_type} - {conf:.1%}
+                                    </p>
                                 </div>
                                 """, unsafe_allow_html=True)
                         
@@ -320,8 +336,8 @@ def main():
                             </p>
                             <hr style="border-color:rgba(255,255,255,0.3); margin:20px 0;">
                             <p style="color:white; font-size:1.0em; margin:10px 0 0 0;">
-                                This model is specifically trained to identify Gir and Murrah cattle breeds.
-                                For best results, please upload clear images of these cattle breeds.
+                                This model is specifically trained to identify Gir cattle and Murrah buffalo breeds.
+                                For best results, please upload clear images of these livestock breeds.
                             </p>
                         </div>
                         """, unsafe_allow_html=True)
@@ -337,13 +353,13 @@ def main():
                         # Display sample images
                         sample_col1, sample_col2 = st.columns(2)
                         with sample_col1:
-                            st.markdown("<h4 style='text-align:center;'>Gir</h4>", unsafe_allow_html=True)
+                            st.markdown("<h4 style='text-align:center;'>Gir (Cattle)</h4>", unsafe_allow_html=True)
                             if os.path.exists("data/train/gir/Gir1.jpg"):
-                                st.image("data/train/gir/Gir1.jpg", caption="Sample Gir breed")
+                                st.image("data/train/gir/Gir1.jpg", caption="Sample Gir cattle breed")
                         with sample_col2:
-                            st.markdown("<h4 style='text-align:center;'>Murrah</h4>", unsafe_allow_html=True)
+                            st.markdown("<h4 style='text-align:center;'>Murrah (Buffalo)</h4>", unsafe_allow_html=True)
                             if os.path.exists("data/train/murrah/mur1.jpg"):
-                                st.image("data/train/murrah/mur1.jpg", caption="Sample Murrah breed")
+                                st.image("data/train/murrah/mur1.jpg", caption="Sample Murrah buffalo breed")
                         
                         # Add a button to try again
                         st.markdown("<div style='text-align:center; margin-top:20px;'>", unsafe_allow_html=True)
@@ -355,74 +371,107 @@ def main():
                     
                     # Only create and display chart for valid cattle images
                     if is_valid_cattle:
-                        # Create horizontal bar chart with thicker bars
-                        bars = ax.barh(y_pos, [conf * 100 for conf in confidences], color=colors, height=0.5)
+                        # Create horizontal bar chart with better styling
+                        bars = ax.barh(y_pos, [conf * 100 for conf in confidences], color=colors, height=0.6, alpha=0.8)
                         
-                        # Add percentage annotations to the bars
+                        # Add percentage annotations to the bars with better positioning
                         for i, bar in enumerate(bars):
                             width = bar.get_width()
-                            ax.text(width + 1, bar.get_y() + bar.get_height()/2, 
-                                    f'{confidences[i]:.2%}', ha='left', va='center', fontsize=12, fontweight='bold')
+                            # Place text inside the bar if it's wide enough, otherwise outside
+                            if width > 30:
+                                ax.text(width/2, bar.get_y() + bar.get_height()/2, 
+                                        f'{confidences[i]:.1%}', ha='center', va='center', 
+                                        fontsize=14, fontweight='bold', color='white')
+                            else:
+                                ax.text(width + 2, bar.get_y() + bar.get_height()/2, 
+                                        f'{confidences[i]:.1%}', ha='left', va='center', 
+                                        fontsize=14, fontweight='bold', color='black')
                         
                         # Set chart properties with better formatting
                         ax.set_yticks(y_pos)
-                        ax.set_yticklabels([breed.title() for breed in breeds], fontsize=12)
-                        ax.set_xlabel('Confidence (%)', fontsize=12)
-                        ax.set_title('Breed Prediction Confidence', fontsize=14, fontweight='bold')
+                        breed_labels = []
+                        for breed in breeds:
+                            if breed.lower() == 'gir':
+                                breed_labels.append('Gir (Cattle)')
+                            elif breed.lower() == 'murrah':
+                                breed_labels.append('Murrah (Buffalo)')
+                            else:
+                                breed_labels.append(breed.title())
+                        ax.set_yticklabels(breed_labels, fontsize=14, fontweight='bold')
+                        ax.set_xlabel('Confidence (%)', fontsize=14, fontweight='bold')
+                        ax.set_title('🎯 Breed Classification Confidence', fontsize=16, fontweight='bold', pad=20)
                         ax.spines['top'].set_visible(False)
                         ax.spines['right'].set_visible(False)
-                        ax.grid(axis='x', linestyle='--', alpha=0.7)
+                        ax.spines['left'].set_linewidth(2)
+                        ax.spines['bottom'].set_linewidth(2)
+                        ax.grid(axis='x', linestyle='-', alpha=0.3, linewidth=1)
                         
-                        # Adjust x-axis limit to ensure annotations fit
-                        ax.set_xlim(0, 110)
+                        # Adjust x-axis limit and add better ticks
+                        ax.set_xlim(0, 105)
+                        ax.set_xticks(range(0, 101, 20))
+                        
+                        # Add a subtle background
+                        ax.set_facecolor('#f8f9fa')
                     
                         # Add threshold line at 85% to indicate confidence threshold
-                        ax.axvline(x=85, color='red', linestyle='--', alpha=0.7)
-                        ax.text(86, -0.4, 'Threshold (85%)', color='white', fontsize=10, alpha=0.8)
+                        ax.axvline(x=85, color='#e74c3c', linestyle='--', linewidth=3, alpha=0.9)
                         
-                        # Create a chart that works well in both light and dark modes
-                        # Use darker colors that will be visible on both backgrounds
+                        # Position threshold text better
+                        if len(breeds) > 1:
+                            text_y = 0.5
+                        else:
+                            text_y = 0
                         
-                        # Set a transparent background for the figure 
-                        # Use tuple format (R, G, B, A) with values from 0 to 1
-                        text_color = '#FFFFFF'  # White text for visibility on dark backgrounds
-                        grid_color = '#666666'  # Medium gray grid
+                        ax.text(87, text_y, '← Confidence\nThreshold\n(85%)', 
+                                color='#e74c3c', fontsize=10, fontweight='bold', 
+                                bbox=dict(boxstyle='round,pad=0.4', facecolor='white', 
+                                         edgecolor='#e74c3c', alpha=0.9, linewidth=2))
                         
-                        # Use transparent background (properly formatted for matplotlib)
-                        fig.patch.set_facecolor('none')  # Transparent background
-                        ax.set_facecolor((0.1, 0.1, 0.1, 0.1))  # Very slight darkening
+                        # Set professional styling
+                        fig.patch.set_facecolor('white')
                         
-                        # Use high-contrast colors for text and labels that will be visible in any mode
-                        # Keep the original colors of the bars which have good contrast already
+                        # Set tick parameters with better colors for readability
+                        ax.tick_params(axis='both', colors='#2c3e50', labelsize=12)
                         
-                        # Set tick parameters with more visible colors
-                        ax.tick_params(axis='both', colors='white')
+                        # Make axes labels more visible with professional colors
+                        ax.xaxis.label.set_color('#2c3e50')
+                        ax.yaxis.label.set_color('#2c3e50')
+                        ax.title.set_color('#2c3e50')
                         
-                        # Make axes labels more visible
-                        ax.xaxis.label.set_color('white')
-                        ax.yaxis.label.set_color('white')
-                        ax.title.set_color('white')
+                        # Add some padding and adjust layout
+                        plt.tight_layout()
                         
-                        # Ensure all text in the chart is visible
-                        for text in ax.texts:
-                            text.set_color('white')
-                        
-                        # Set grid with visible lines
-                        ax.grid(axis='x', linestyle='--', alpha=0.5, color='#888888')
-                        
-                        # Show the chart
-                        st.pyplot(fig)
+                        # Show the chart with better formatting
+                        st.pyplot(fig, use_container_width=True)
                     
                     # Add "Save Record" button only for valid cattle images
                     if is_valid_cattle:
-                        st.markdown("<hr style='margin: 30px 0; opacity: 0.3;'>", unsafe_allow_html=True)
-                        st.markdown("<h3 class='dark-mode-compatible' style='margin-bottom:15px;'>Save Prediction Results</h3>", unsafe_allow_html=True)
+                        st.markdown("<hr style='margin: 40px 0; border: 1px solid #e0e0e0;'>", unsafe_allow_html=True)
                         
-                        col_btn1, col_btn2 = st.columns([1, 2])
-                        with col_btn1:
-                            if st.button("📋 Save Record (BPA Integration)", use_container_width=True, type="primary"):
+                        # Create a professional save section
+                        st.markdown("""
+                        <div style="background: linear-gradient(90deg, #0068c9 0%, #004c9c 100%); 
+                                    padding: 20px; border-radius: 15px; margin: 20px 0;">
+                            <h3 style="color: white; margin: 0; text-align: center; font-size: 1.3em;">
+                                💾 Save to Bharat Pashudhan App (BPA)
+                            </h3>
+                            <p style="color: #e8f4f8; margin: 8px 0 0 0; text-align: center; font-size: 1.0em;">
+                                Save classification results in BPA-compatible format
+                            </p>
+                        </div>
+                        """, unsafe_allow_html=True)
+                        
+                        # Center the button
+                        col1, col2, col3 = st.columns([1, 2, 1])
+                        with col2:
+                            if st.button("📋 Save to BPA Database", 
+                                        key="save_bpa",
+                                        help="Save prediction results to BPA-compatible CSV format",
+                                        use_container_width=True, 
+                                        type="primary"):
                                 csv_file = save_to_csv(prediction_result, image)
-                                st.success(f"✅ Record saved successfully!")
+                                st.balloons()
+                                st.success("✅ Successfully saved to BPA-compatible format!")
                             
                                 # Show latest records
                                 if os.path.exists(csv_file):

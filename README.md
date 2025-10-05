@@ -1,13 +1,13 @@
-# Cattle Breed Classifier
+# AI-Based Breed Identification System for Cattle and Buffaloes
 
-A proof-of-concept cattle breed classifier built with TensorFlow and Keras that distinguishes between Gir and Murrah cattle breeds.
+A proof-of-concept AI system built with CNN-based deep learning (TensorFlow and Keras) that identifies cattle and buffalo breeds. Designed for integration with Bharat Pashudhan App (BPA).
 
 ## Overview
 
-This project uses transfer learning with pre-trained MobileNetV2 architecture to classify cattle breeds. The model is trained to distinguish between two breeds:
+This project uses transfer learning with pre-trained MobileNetV2 architecture to classify livestock breeds. The model is trained to distinguish between:
 
-- Gir
-- Murrah
+- **Gir** (Cattle breed)
+- **Murrah** (Buffalo breed)
 
 ## Project Structure
 
