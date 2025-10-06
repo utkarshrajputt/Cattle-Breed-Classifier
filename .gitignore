@@ -1,0 +1,130 @@
+# Python virtual environment
+.venv/
+venv/
+env/
+ENV/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+SUBDIRS
+.pytest_cache/
+
+# PyTorch model files (except the main mobilenetv2 model)
+enhanced_*.pth
+simple_*.pth
+resnet50_*.pth
+regnety_*.pth
+vit_*.pth
+*.h5
+
+# Model result and comparison files
+*_results.json
+*_comparison*.json
+*_comparison*.png
+*_comparison*.html
+enhanced_models_*.json
+enhanced_models_*.html
+proper_validation_results.json
+
+# Training history images
+*_training.png
+*_history.png
+model_comparison.png
+
+# Temporary files
+temp/
+*.tmp
+*.bak
+*.swp
+*~
+
+# Extracted/generated data files
+extracted_breed_text.txt
+cattle_breed_database.json
+comprehensive_breed_database.json
+
+# Dataset directories (too large - excluded from repository)
+data/
+data_proper_split/
+
+# Records directory (CSV files with predictions)
+records/*.csv
+
+# IDE specific files
+.vscode/
+.idea/
+*.code-workspace
+
+# OS specific files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Jupyter Notebooks checkpoints
+.ipynb_checkpoints/
+
+# Log files
+*.log
+
+# Documentation drafts (keep only final docs)
+documentation.md
+
+# Old/unused training scripts
+batch_train_models.py
+compare_models.py
+comprehensive_enhanced_testing.py
+comprehensive_model_comparison.py
+confusion_matrix.py
+convnext_pytorch_train.py
+enhanced_augmentation_train.py
+enhanced_efficientnet_b0_train.py
+enhanced_mobilenetv2_train.py
+resnet50_pytorch_train.py
+regnety_pytorch_train.py
+vit_pytorch_train.py
+simple_mobilenet_train.py
+proper_validation.py
+
+# Old/unused classifier files
+cattle_breed_classifier.py
+simple_cattle_classifier.py
+simple_predictor.py
+
+# Old/unused utility scripts
+image_validator.py
+predict_breed.py
+test_cattle_breed.py
+test_prediction.py
+test_model_load.py
+mobilenet_41classes.py
+enhanced_breed_extractor.py
+create_breed_database.py
+
+# Class mapping files for unused models
+resnet50_classes.json
+regnety_classes.json
+vit_classes.json

@@ -1,44 +1,198 @@
 """
-Streamlit App for A    # Save the uploaded file to a temporary location and return the path
-    # Create a temporary directory if it doesn't exist
-    if not os.path.exists('temp'):
-        os.makedirs('temp')
-    
-    # Preserve the original filename if available, otherwise generate a unique name
-    if hasattr(uploaded_file, 'name'):
-        original_filename = uploaded_file.name
-    else:
-        # Generate a unique filename with timestamp
-        timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-        original_filename = f"uploaded_image_{timestamp}.jpg"
-    
-    # Save the uploaded file
-    file_path = os.path.join('temp', original_filename)
-    with open(file_path, "wb") as f:
-        f.write(uploaded_file.getbuffer())
-    
-    print(f"Saved uploaded file: {original_filename} to {file_path}")
-    return file_pathBreed Identification
+Modern Cattle Breed Identification Web App
+==========================================
+A Streamlit web interface for the 41-breed cattle classifier
 """
 
 import os
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import plotly.express as px
+import plotly.graph_objects as go
 import tempfile
 import datetime
 import numpy as np
 from PIL import Image
 import io
 import seaborn as sns
+import torch
+import json
 from sklearn.metrics import confusion_matrix, classification_report
-from predict_breed import predict_breed
+from modern_predictor import ModernCattlePredictor
 
 # Set page configuration
 st.set_page_config(
-    page_title="AI-Based Cattle Breed Identification",
-    layout="wide"
+    page_title="Cattle Breed Classifier",
+    page_icon="🐄",
+    layout="wide",
+    initial_sidebar_state="expanded"
 )
+
+# Initialize session state
+if 'predictions_history' not in st.session_state:
+    st.session_state.predictions_history = []
+
+@st.cache_data
+def load_breed_information():
+    """Load breed information from JSON file"""
+    try:
+        with open('breedInformation.json', 'r', encoding='utf-8') as f:
+            breed_data = json.load(f)
+        
+        # Create name mapping for faster lookup
+        breed_data['name_mapping'] = create_breed_name_mapping(breed_data)
+        return breed_data
+    except FileNotFoundError:
+        st.warning("⚠️ Breed information file not found. Breed details will not be available.")
+        return {"buffalo_breeds": [], "cattle_breeds": [], "name_mapping": {}}
+    except Exception as e:
+        st.error(f"❌ Error loading breed information: {str(e)}")
+        return {"buffalo_breeds": [], "cattle_breeds": [], "name_mapping": {}}
+
+def normalize_breed_name(name):
+    """Normalize breed name for better matching"""
+    return name.lower().strip().replace('_', ' ').replace('-', ' ')
+
+def create_breed_name_mapping(breed_data):
+    """Create a mapping dictionary for common breed name variations"""
+    mapping = {}
+    all_breeds = breed_data.get("buffalo_breeds", []) + breed_data.get("cattle_breeds", [])
+    
+    for breed in all_breeds:
+        breed_name = breed["name"]
+        
+        # Add various formats that models might predict
+        variations = [
+            breed_name.lower(),
+            breed_name.lower().replace(' ', '_'),
+            breed_name.lower().replace(' ', ''),
+            breed_name.lower().replace('-', '_'),
+        ]
+        
+        for variation in variations:
+            mapping[variation] = breed_name
+        
+        # Add alternative names
+        for alt_name in breed.get("also_known_as", []):
+            alt_variations = [
+                alt_name.lower(),
+                alt_name.lower().replace(' ', '_'),
+                alt_name.lower().replace(' ', ''),
+                alt_name.lower().replace('-', '_'),
+            ]
+            for alt_var in alt_variations:
+                mapping[alt_var] = breed_name
+    
+    return mapping
+
+def get_breed_info(breed_name, breed_data):
+    """Get detailed information for a specific breed with enhanced name matching"""
+    breed_name_lower = breed_name.lower().strip()
+    
+    # First, try the fast mapping lookup
+    name_mapping = breed_data.get('name_mapping', {})
+    if breed_name_lower in name_mapping:
+        actual_breed_name = name_mapping[breed_name_lower]
+        # Find the breed with this actual name
+        all_breeds = breed_data.get("buffalo_breeds", []) + breed_data.get("cattle_breeds", [])
+        for breed in all_breeds:
+            if breed["name"] == actual_breed_name:
+                return breed
+    
+    # If mapping didn't work, fall back to detailed matching
+    # Create variations of the breed name to handle different formats
+    breed_variations = [
+        breed_name_lower,
+        breed_name_lower.replace('_', ' '),  # krishna_valley -> krishna valley
+        breed_name_lower.replace(' ', '_'),  # krishna valley -> krishna_valley
+        breed_name_lower.replace('-', ' '),  # handle hyphens
+        breed_name_lower.replace(' ', '-'),  # handle hyphens
+        breed_name_lower.replace('_', ''),   # remove underscores completely
+        breed_name_lower.replace(' ', ''),   # remove spaces completely
+    ]
+    
+    # Search in both buffalo and cattle breeds
+    all_breeds = breed_data.get("buffalo_breeds", []) + breed_data.get("cattle_breeds", [])
+    
+    for breed in all_breeds:
+        breed_main_name = breed["name"].lower().strip()
+        
+        # Create variations for the JSON breed name as well
+        json_variations = [
+            breed_main_name,
+            breed_main_name.replace(' ', '_'),
+            breed_main_name.replace('_', ' '),
+            breed_main_name.replace('-', ' '),
+            breed_main_name.replace(' ', '-'),
+            breed_main_name.replace('_', ''),
+            breed_main_name.replace(' ', ''),
+        ]
+        
+        # Check if any variation matches
+        for pred_var in breed_variations:
+            for json_var in json_variations:
+                if pred_var == json_var:
+                    return breed
+        
+        # Check alternative names with the same variation logic
+        for alt_name in breed.get("also_known_as", []):
+            alt_name_lower = alt_name.lower().strip()
+            alt_variations = [
+                alt_name_lower,
+                alt_name_lower.replace(' ', '_'),
+                alt_name_lower.replace('_', ' '),
+                alt_name_lower.replace('-', ' '),
+                alt_name_lower.replace(' ', '-'),
+                alt_name_lower.replace('_', ''),
+                alt_name_lower.replace(' ', ''),
+            ]
+            
+            for pred_var in breed_variations:
+                for alt_var in alt_variations:
+                    if pred_var == alt_var:
+                        return breed
+    
+    # If no exact match found, try a more fuzzy approach
+    # Normalize both predicted and JSON names to basic form
+    normalized_pred = normalize_breed_name(breed_name)
+    
+    for breed in all_breeds:
+        normalized_json = normalize_breed_name(breed["name"])
+        
+        # Check if normalized names match
+        if normalized_pred == normalized_json:
+            return breed
+        
+        # Check alternative names with normalization
+        for alt_name in breed.get("also_known_as", []):
+            if normalized_pred == normalize_breed_name(alt_name):
+                return breed
+    
+    return None
+
+@st.cache_resource
+def load_predictor():
+    """Load the cattle breed predictor model - Using Original MobileNetV2!"""
+    try:
+        # Use Original MobileNetV2 - the TRUE winner with 89.49% validation accuracy!
+        model_path = 'mobilenetv2_best_model.pth'
+        results_path = 'mobilenetv2_pytorch_results.json'
+        
+        # Check if required files exist
+        if not os.path.exists(model_path):
+            st.error("❌ Original MobileNetV2 model file not found. Please train the model first!")
+            return None
+        if not os.path.exists(results_path):
+            st.error("❌ Original MobileNetV2 training results file not found. Please train the model first!")
+            return None
+            
+        predictor = ModernCattlePredictor(model_path, results_path)
+        return predictor
+    except Exception as e:
+        st.error(f"❌ Failed to load model: {str(e)}")
+        st.info("💡 Make sure you have trained the model by running: python mobilenetv2_pytorch_train.py")
+        return None
 
 def save_uploaded_file(uploaded_file):
     """Save the uploaded file to a temporary location and return the path"""
@@ -108,7 +262,7 @@ def save_to_csv(data, image):
 def main():
     """Main function to run the Streamlit app"""
     
-    # Custom CSS for styling that works in both light and dark modes
+    # Enhanced CSS for professional styling
     st.markdown("""
     <style>
     .main-header {
@@ -124,12 +278,46 @@ def main():
     }
     .sub-header {
         font-size: 1.3em;
-        padding: 10px;
+        padding: 15px;
         text-align: center;
         background-color: rgba(128, 128, 128, 0.1);
-        border-radius: 5px;
+        border-radius: 10px;
         margin-bottom: 25px;
         color: inherit !important;
+    }
+    .dark-mode-compatible {
+        color: inherit !important;
+    }
+    .highlight-box {
+        background: linear-gradient(135deg, #0068c9 0%, #004c9c 100%);
+        padding: 20px;
+        border-radius: 15px;
+        margin-bottom: 20px;
+        color: white !important;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .info-box {
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        background-color: rgba(128, 128, 128, 0.1);
+        border: 1px solid rgba(128, 128, 128, 0.2);
+    }
+    .warning-box {
+        background-color: #FF5151;
+        padding: 25px;
+        border-radius: 15px;
+        margin-bottom: 20px;
+        color: white !important;
+        box-shadow: 0 4px 8px rgba(255,81,81,0.3);
+    }
+    .image-border {
+        border: 3px solid #0068c9;
+        border-radius: 15px;
+        padding: 10px;
+        margin-bottom: 20px;
+        background: white;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
     /* Apply these styles to ensure text is visible in all modes */
     .dark-mode-compatible {
@@ -166,7 +354,82 @@ def main():
     """, unsafe_allow_html=True)
     
     # Title and description with enhanced styling that works in dark mode
-    st.markdown("<h1 class='main-header'>AI-Based Breed Identification System for Cattle and Buffaloes</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 class='main-header'>🐄 AI-Based Cattle Breed Identification System</h1>", unsafe_allow_html=True)
+    
+    # Load predictor for sidebar info
+    predictor = load_predictor()
+    
+    # Enhanced sidebar with comprehensive information
+    with st.sidebar:
+        # Logo/Image placeholder
+        st.markdown("""
+        <div style='text-align: center; margin-bottom: 20px;'>
+            <div style='font-size: 4em; margin-bottom: 10px;'>🐄</div>
+            <h2 style='color: #0068c9; margin: 0;'>Cattle AI</h2>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        st.markdown("<h2 style='text-align: center; color: #0068c9;'>About</h2>", unsafe_allow_html=True)
+        st.markdown("""
+        <div class="info-box" style="border-left: 4px solid #0068c9;">
+            <p class="dark-mode-compatible">Advanced AI-powered cattle breed identification system using 
+            deep learning CNN models. Upload an image to get instant breed predictions with confidence scores.</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        st.markdown("<h2 style='text-align: center; color: #0068c9; margin-top: 25px;'>Model Information</h2>", unsafe_allow_html=True)
+        if predictor:
+            st.markdown(f"""
+            <div class="info-box">
+                <p class="dark-mode-compatible"><strong>🔹 Model:</strong> Original MobileNetV2</p>
+                <p class="dark-mode-compatible"><strong>🔹 Classes:</strong> {len(predictor.classes)} cattle breeds</p>
+                <p class="dark-mode-compatible"><strong>🔹 Validation Accuracy:</strong> {predictor.best_accuracy:.1f}%</p>
+                <p class="dark-mode-compatible"><strong>🔹 Test Accuracy:</strong> 88.91%</p>
+                <p class="dark-mode-compatible"><strong>🔹 Input Size:</strong> 224×224 pixels</p>
+                <p class="dark-mode-compatible"><strong>🔹 Device:</strong> {'GPU (CUDA)' if torch.cuda.is_available() else 'CPU'}</p>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            st.markdown("### 🎉 Model Selection Results!")
+            st.markdown("""
+            <div class="info-box">
+                <p class="dark-mode-compatible">Our comprehensive analysis revealed Original MobileNetV2 
+                significantly outperforms enhanced versions:</p>
+                <p class="dark-mode-compatible"><strong>✅ Original MobileNetV2:</strong> 89.49%</p>
+                <p class="dark-mode-compatible"><strong>❌ Enhanced MobileNetV2:</strong> 59.48%</p>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        # Add help section
+        st.markdown("<h2 style='text-align: center; color: #0068c9; margin-top: 25px;'>How to Use</h2>", unsafe_allow_html=True)
+        st.markdown("""
+        <div class="info-box">
+            <ol class="dark-mode-compatible">
+                <li>Select the <strong>"Image Classification"</strong> tab</li>
+                <li>Click <strong>"Browse files"</strong> button</li>
+                <li>Select a cattle image (JPG, PNG)</li>
+                <li>View predictions and confidence scores</li>
+                <li>Save results to CSV for record keeping</li>
+            </ol>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        # Show supported breeds
+        if predictor:
+            with st.expander("🐄 Supported Breeds"):
+                breeds_df = pd.DataFrame({'Breed': predictor.classes})
+                st.dataframe(breeds_df, use_container_width=True)
+        else:
+            st.error("Model not loaded!")
+            
+        st.markdown("---")
+        st.markdown("### 💡 Tips for Best Results")
+        st.markdown("""
+        - Upload clear, well-lit images
+        - Ensure the cattle is clearly visible
+        - Avoid blurry or distant shots
+        - Single animal per image works best
+        """)
     st.markdown("""
     <div class='sub-header'>
         <p>This application uses a deep learning CNN model to identify cattle and buffalo breeds from images.</p>
@@ -176,46 +439,16 @@ def main():
     """, unsafe_allow_html=True)
     
     # Add tabs for different functions
-    tab1, tab2 = st.tabs(["Image Classification", "Model Performance"])
-    
-    # Enhanced sidebar with information
-    with st.sidebar:
-        # Logo/Image placeholder
-        st.image("https://img.icons8.com/color/96/cow.png", width=100)
-        
-        st.markdown("<h2 style='text-align: center; color: #0068c9;'>About</h2>", unsafe_allow_html=True)
-        st.markdown("""
-        <div class="info-box" style="border-left: 4px solid #0068c9;">
-            <p class="dark-mode-compatible">This application uses a MobileNetV2-based CNN model trained on cattle and buffalo breeds (Gir cattle and Murrah buffalo). 
-            Upload an image to get instant breed predictions with confidence scores. Designed for BPA integration.</p>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        st.markdown("<h2 style='text-align: center; color: #0068c9; margin-top: 25px;'>Model Information</h2>", unsafe_allow_html=True)
-        st.markdown("""
-        <div class="info-box">
-            <p class="dark-mode-compatible"><strong>🔹 Model:</strong> CNN-based (MobileNetV2 Transfer Learning)</p>
-            <p class="dark-mode-compatible"><strong>🔹 Classes:</strong> Gir (Cattle), Murrah (Buffalo)</p>
-            <p class="dark-mode-compatible"><strong>🔹 Input Size:</strong> 224×224 pixels</p>
-            <p class="dark-mode-compatible"><strong>🔹 BPA Ready:</strong> Standardized data format</p>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        # Add a help section
-        st.markdown("<h2 style='text-align: center; color: #0068c9; margin-top: 25px;'>How to Use</h2>", unsafe_allow_html=True)
-        st.markdown("""
-        <div class="info-box">
-            <ol class="dark-mode-compatible">
-                <li>Click the <strong>"Browse files"</strong> button</li>
-                <li>Select a cattle image (JPG, PNG)</li>
-                <li>View the predictions and confidence scores</li>
-                <li>Save the results using the button below</li>
-            </ol>
-        </div>
-        """, unsafe_allow_html=True)
+    tab1, tab2 = st.tabs(["🖼️ Image Classification", "� Model Performance"])
     
     # File upload - inside the Image Classification tab
     with tab1:
+        # Check if model is loaded first
+        predictor = load_predictor()
+        if predictor is None:
+            st.warning("⚠️ Model not loaded. Please check the error messages above.")
+            st.stop()
+            
         uploaded_file = st.file_uploader("Upload an image of cattle or buffalo", type=["jpg", "jpeg", "png"])
         
         if uploaded_file is not None:
@@ -252,11 +485,42 @@ def main():
                 else:
                     st.write("Processing uploaded file")
                 
-                # Make prediction with validation using confidence threshold
-                prediction_result = predict_breed(file_path, confidence_threshold=0.85)
+                # Load predictor
+                predictor = load_predictor()
+                if predictor is None:
+                    st.error("Failed to load the model!")
+                    return
                 
-                # Debug info - show validation result
-                st.write(f"Valid cattle: {prediction_result.get('valid_cattle', False)}")
+                # Make prediction using the new predictor
+                result = predictor.predict_single(file_path)
+                
+                # Convert result to predictions format
+                if 'error' in result:
+                    st.error(f"❌ Prediction failed: {result['error']}")
+                    return
+                
+                predictions = result['top_predictions']
+                
+                # Check if predictions were returned
+                if not predictions or len(predictions) == 0:
+                    st.error("❌ No predictions returned. Please try a different image.")
+                    return
+                
+                # Enhanced confidence threshold validation (85%)
+                CONFIDENCE_THRESHOLD = 85.0
+                
+                # Convert to enhanced format with validation
+                prediction_result = {}
+                for i, pred in enumerate(predictions[:5], 1):
+                    prediction_result[f'Prediction {i}'] = {
+                        'breed': pred['breed'],
+                        'confidence': pred['percentage'] / 100.0  # Convert to 0-1 scale for compatibility
+                    }
+                
+                # Enhanced validation: use 85% confidence threshold
+                top_confidence = predictions[0]['percentage']
+                prediction_result['valid_cattle'] = top_confidence >= CONFIDENCE_THRESHOLD
+                prediction_result['top_confidence'] = top_confidence
                 
                 # Extract predictions for display and chart
                 breeds = []
@@ -272,234 +536,534 @@ def main():
                         confidences.append(value['confidence'])
                 
                 with col2:
-                    st.subheader("Prediction Results")
+                    st.markdown("<h3 style='margin-bottom:15px;'>🎯 Prediction Results</h3>", unsafe_allow_html=True)
                     
-                    # Check if the image is likely a cattle breed
+                    # Check if the image meets confidence threshold
                     is_valid_cattle = prediction_result.get('valid_cattle', False)
+                    top_confidence = prediction_result.get('top_confidence', 0)
                     
-                    # Create a highlighted box for the top prediction
+                    # Enhanced prediction display
                     top_breed = breeds[0] if breeds else "Unknown"
                     top_conf = confidences[0] if confidences else 0
                     
-                    # Display different messages based on validation
+                    # Display results - always show top prediction with confidence status
                     if is_valid_cattle:
-                        # Display the predicted breed prominently
+                        # High confidence - Display professional results
                         st.markdown(f"""
                         <div class="highlight-box">
-                            <h3 style="margin:0;">Predicted Breed: {top_breed.upper()}</h3>
-                            <p style="font-size:1.2em; margin:5px 0 0 0;">Confidence: {top_conf:.2%}</p>
+                            <h3 style="margin:0;">✅ Predicted Breed: {top_breed.upper()}</h3>
+                            <p style="font-size:1.3em; margin:10px 0 0 0;">Confidence: {top_confidence:.1f}%</p>
+                            <p style="font-size:1.0em; margin:5px 0 0 0;">Status: High Confidence (≥85%)</p>
+                        </div>
+                        """, unsafe_allow_html=True)
+                    else:
+                        # Low confidence - Still show top prediction but with warning styling
+                        st.markdown(f"""
+                        <div class="warning-box">
+                            <h3 style="color:white; margin:0; text-align:center;">⚠️ Predicted Breed: {top_breed.upper()}</h3>
+                            <p style="color:white; font-size:1.2em; margin:15px 0; text-align:center;">
+                                Confidence: {top_confidence:.1f}%
+                            </p>
+                            <p style="color:white; font-size:1.0em; margin:0; text-align:center;">
+                                Status: Low Confidence (Below 85% threshold)
+                            </p>
                         </div>
                         """, unsafe_allow_html=True)
                         
-                        # Display all predictions with professional styling
-                        st.markdown("<h3 style='margin: 25px 0 15px 0; color: #2c3e50;'>🎯 Classification Results:</h3>", unsafe_allow_html=True)
+                        # Load breed information
+                        breed_data = load_breed_information()
                         
-                        for i, (breed, conf) in enumerate(zip(breeds, confidences)):
-                            # Determine breed type
-                            breed_type = "(Cattle)" if breed.lower() == "gir" else "(Buffalo)"
+                        # Show only top 3 predictions with enhanced design and breed info
+                        top_3_breeds = breeds[:3]
+                        top_3_confidences = confidences[:3]
+                        
+                        for i, (breed, conf) in enumerate(zip(top_3_breeds, top_3_confidences)):
+                            # Get breed information
+                            breed_info = get_breed_info(breed, breed_data)
                             
-                            # Highlight the top prediction differently with better styling
+                            # Debug: Show what we're trying to match (only in development)
+                            # st.write(f"Debug: Looking for '{breed}' -> Found: {breed_info is not None}")
+                            # Calculate confidence percentage for display
+                            conf_percentage = conf * 100 if conf <= 1 else conf
+                            
+                            # Enhanced styling with ranking and breed information
                             if i == 0:
+                                # Gold medal for top prediction
                                 st.markdown(f"""
                                 <div style="background: linear-gradient(135deg, #0068c9 0%, #004c9c 100%);
-                                           padding: 15px; border-radius: 12px; margin: 10px 0;
-                                           box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 5px solid #FFD700;">
-                                    <p style="color: white; font-size: 1.3em; margin: 0; font-weight: bold;">
-                                        {breed.title()} {breed_type} - {conf:.1%}
-                                    </p>
+                                           padding: 18px; border-radius: 15px; margin: 12px 0;
+                                           box-shadow: 0 6px 12px rgba(0,0,0,0.15); border-left: 6px solid #FFD700;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <div>
+                                            <p style="color: white; font-size: 1.4em; margin: 0; font-weight: bold;">
+                                                🥇 #{i+1}: {breed.title()}
+                                            </p>
+                                            <p style="color: #e8f4f8; font-size: 1.0em; margin: 5px 0 0 0;">
+                                                Primary Prediction
+                                            </p>
+                                        </div>
+                                        <div style="text-align: right;">
+                                            <p style="color: #FFD700; font-size: 1.8em; margin: 0; font-weight: bold;">
+                                                {conf_percentage:.1f}%
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
                                 """, unsafe_allow_html=True)
-                            else:
+                                
+                                # Add detailed breed information for top prediction
+                                with st.expander(f"📖 Learn more about {breed.title()}", expanded=True):
+                                    if breed_info:
+                                        col1, col2 = st.columns([1, 1])
+                                        
+                                        with col1:
+                                            st.markdown("**🏞️ Origin & Location:**")
+                                            if breed_info.get("breeding_tract"):
+                                                tract = breed_info["breeding_tract"]
+                                                st.write(f"• **State:** {tract.get('state', 'Not specified')}")
+                                                if tract.get('districts'):
+                                                    districts = ", ".join(tract["districts"][:3])  # Show first 3 districts
+                                                    if len(tract["districts"]) > 3:
+                                                        districts += f" and {len(tract['districts']) - 3} more"
+                                                    st.write(f"• **Districts:** {districts}")
+                                            
+                                            if breed_info.get("also_known_as"):
+                                                st.markdown("**📝 Also Known As:**")
+                                                st.write(f"• {', '.join(breed_info['also_known_as'])}")
+                                        
+                                        with col2:
+                                            st.markdown("**🐄 Physical Characteristics:**")
+                                            if breed_info.get("physical_characteristics"):
+                                                phys = breed_info["physical_characteristics"]
+                                                if phys.get("color"):
+                                                    st.write(f"• **Color:** {phys['color']}")
+                                                if phys.get("horns"):
+                                                    st.write(f"• **Horns:** {phys['horns']}")
+                                                if phys.get("size_and_body"):
+                                                    st.write(f"• **Body:** {phys['size_and_body']}")
+                                        
+                                        # Additional information in full width
+                                        if breed_info.get("milk_yield"):
+                                            st.markdown("**🥛 Milk Production:**")
+                                            st.info(breed_info["milk_yield"])
+                                        
+                                        if breed_info.get("utility"):
+                                            st.markdown("**🎯 Primary Use:**")
+                                            st.success(breed_info["utility"])
+                                        
+                                        if breed_info.get("special_facts"):
+                                            st.markdown("**✨ Special Facts:**")
+                                            st.warning(breed_info["special_facts"])
+                                    else:
+                                        st.info(f"📚 Detailed information for **{breed.title()}** is not available in our database yet. We are continuously updating our breed information.")
+                            elif i == 1:
+                                # Silver medal for second prediction
                                 st.markdown(f"""
                                 <div style="background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
-                                           padding: 12px; border-radius: 10px; margin: 8px 0;
-                                           box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                                    <p style="color: white; font-size: 1.1em; margin: 0; font-weight: 600;">
-                                        {breed.title()} {breed_type} - {conf:.1%}
-                                    </p>
+                                           padding: 15px; border-radius: 12px; margin: 10px 0;
+                                           box-shadow: 0 4px 8px rgba(0,0,0,0.1); border-left: 5px solid #C0C0C0;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <div>
+                                            <p style="color: white; font-size: 1.2em; margin: 0; font-weight: bold;">
+                                                � #{i+1}: {breed.title()}
+                                            </p>
+                                            <p style="color: #e0e0e0; font-size: 0.9em; margin: 3px 0 0 0;">
+                                                Alternative Prediction
+                                            </p>
+                                        </div>
+                                        <div style="text-align: right;">
+                                            <p style="color: #C0C0C0; font-size: 1.5em; margin: 0; font-weight: bold;">
+                                                {conf_percentage:.1f}%
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
                                 """, unsafe_allow_html=True)
-                        
-                        # Create and display improved bar chart
-                        fig, ax = plt.subplots(figsize=(8, 4))
-                        y_pos = range(len(breeds))
-                        
-                        # Use different colors for the bars based on validation
-                        colors = ['#0068c9', '#fa4b42'][:len(breeds)]
-                    else:
-                        # Display warning for non-cattle images with detailed metrics
-                        st.markdown(f"""
-                        <div style="background-color:#FF5151; padding:25px; border-radius:10px; margin-bottom:20px">
-                            <h2 style="color:white; margin:0; text-align:center;">⚠️ Not a Recognized Cattle Breed</h2>
-                            <p style="color:white; font-size:1.4em; margin:15px 0 0 0; text-align:center;">
-                                This image doesn't appear to be one of the cattle breeds this model was trained on.
-                            </p>
-                            <hr style="border-color:rgba(255,255,255,0.3); margin:20px 0;">
-                            <p style="color:white; font-size:1.0em; margin:10px 0 0 0;">
-                                This model is specifically trained to identify Gir cattle and Murrah buffalo breeds.
-                                For best results, please upload clear images of these livestock breeds.
-                            </p>
-                        </div>
-                        """, unsafe_allow_html=True)
-                        
-                        # Add sample images section for non-cattle images
-                        st.markdown("""
-                        <div style="margin-top:30px; padding:15px; background-color:rgba(128, 128, 128, 0.1); border-radius:10px;">
-                            <h3 style="text-align:center;">Sample Images</h3>
-                            <p style="text-align:center;">Here are examples of cattle breeds this model can identify:</p>
-                        </div>
-                        """, unsafe_allow_html=True)
-                        
-                        # Display sample images
-                        sample_col1, sample_col2 = st.columns(2)
-                        with sample_col1:
-                            st.markdown("<h4 style='text-align:center;'>Gir (Cattle)</h4>", unsafe_allow_html=True)
-                            if os.path.exists("data/train/gir/Gir1.jpg"):
-                                st.image("data/train/gir/Gir1.jpg", caption="Sample Gir cattle breed")
-                        with sample_col2:
-                            st.markdown("<h4 style='text-align:center;'>Murrah (Buffalo)</h4>", unsafe_allow_html=True)
-                            if os.path.exists("data/train/murrah/mur1.jpg"):
-                                st.image("data/train/murrah/mur1.jpg", caption="Sample Murrah buffalo breed")
-                        
-                        # Add a button to try again
-                        st.markdown("<div style='text-align:center; margin-top:20px;'>", unsafe_allow_html=True)
-                        if st.button("Try Again with a Different Image", use_container_width=True):
-                            st.experimental_rerun()
-                        st.markdown("</div>", unsafe_allow_html=True)
-                        
-                        # Don't show predictions or charts for non-cattle images
+                                
+                                # Add compact breed information for second prediction
+                                with st.expander(f"📋 Quick info about {breed.title()}", expanded=False):
+                                    if breed_info:
+                                        col1, col2 = st.columns([1, 1])
+                                        
+                                        with col1:
+                                            if breed_info.get("breeding_tract", {}).get("state"):
+                                                st.write(f"**📍 Found in:** {breed_info['breeding_tract']['state']}")
+                                            if breed_info.get("physical_characteristics", {}).get("color"):
+                                                color_info = breed_info['physical_characteristics']['color']
+                                                color_short = color_info[:100] + "..." if len(color_info) > 100 else color_info
+                                                st.write(f"**🎨 Color:** {color_short}")
+                                        
+                                        with col2:
+                                            if breed_info.get("milk_yield"):
+                                                milk_info = breed_info["milk_yield"]
+                                                milk_short = milk_info[:80] + "..." if len(milk_info) > 80 else milk_info
+                                                st.write(f"**🥛 Milk:** {milk_short}")
+                                            if breed_info.get("utility"):
+                                                utility_info = breed_info["utility"]
+                                                utility_short = utility_info[:60] + "..." if len(utility_info) > 60 else utility_info
+                                                st.write(f"**🎯 Use:** {utility_short}")
+                                    else:
+                                        st.info(f"📚 Information for **{breed.title()}** coming soon!")
+                            else:
+                                # Bronze medal for third prediction
+                                st.markdown(f"""
+                                <div style="background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+                                           padding: 12px; border-radius: 10px; margin: 8px 0;
+                                           box-shadow: 0 3px 6px rgba(0,0,0,0.1); border-left: 4px solid #CD7F32;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <div>
+                                            <p style="color: white; font-size: 1.1em; margin: 0; font-weight: 600;">
+                                                🥉 #{i+1}: {breed.title()}
+                                            </p>
+                                            <p style="color: #f0e6d2; font-size: 0.85em; margin: 2px 0 0 0;">
+                                                Third Option
+                                            </p>
+                                        </div>
+                                        <div style="text-align: right;">
+                                            <p style="color: #CD7F32; font-size: 1.3em; margin: 0; font-weight: bold;">
+                                                {conf_percentage:.1f}%
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                """, unsafe_allow_html=True)
+                                
+                                # Add brief breed information for third prediction
+                                with st.expander(f"ℹ️ Brief info about {breed.title()}", expanded=False):
+                                    if breed_info:
+                                        if breed_info.get("breeding_tract", {}).get("state"):
+                                            st.write(f"**📍 Origin:** {breed_info['breeding_tract']['state']}")
+                                        if breed_info.get("utility"):
+                                            st.write(f"**🎯 Primary Use:** {breed_info['utility']}")
+                                        if breed_info.get("special_facts"):
+                                            facts = breed_info["special_facts"]
+                                            facts_short = facts[:120] + "..." if len(facts) > 120 else facts
+                                            st.write(f"**✨ Special:** {facts_short}")
+                                    else:
+                                        st.info(f"📚 Info for **{breed.title()}** not available yet.")
                     
-                    # Only create and display chart for valid cattle images
-                    if is_valid_cattle:
-                        # Create horizontal bar chart with better styling
-                        bars = ax.barh(y_pos, [conf * 100 for conf in confidences], color=colors, height=0.6, alpha=0.8)
+                    # UNIVERSAL TOP 3 PREDICTIONS DISPLAY - Always shown regardless of confidence
+                    # Load breed information
+                    breed_data = load_breed_information()
+                    
+                    # Show top 3 predictions with enhanced design and breed info
+                    top_3_breeds = breeds[:3]
+                    top_3_confidences = confidences[:3]
+                    
+                    for i, (breed, conf) in enumerate(zip(top_3_breeds, top_3_confidences)):
+                        # Get breed information
+                        breed_info = get_breed_info(breed, breed_data)
                         
-                        # Add percentage annotations to the bars with better positioning
+                        # Calculate confidence percentage for display
+                        conf_percentage = conf * 100 if conf <= 1 else conf
+                        
+                        # Enhanced styling with ranking and breed information
+                        if i == 0:
+                            # Gold medal for top prediction
+                            st.markdown(f"""
+                            <div style="background: linear-gradient(135deg, #0068c9 0%, #004c9c 100%);
+                                       padding: 18px; border-radius: 15px; margin: 12px 0;
+                                       box-shadow: 0 6px 12px rgba(0,0,0,0.15); border-left: 6px solid #FFD700;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <p style="color: white; font-size: 1.4em; margin: 0; font-weight: bold;">
+                                            🥇 #{i+1}: {breed.title()}
+                                        </p>
+                                        <p style="color: #e8f4f8; font-size: 1.0em; margin: 5px 0 0 0;">
+                                            Primary Prediction
+                                        </p>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <p style="color: #FFD700; font-size: 1.8em; margin: 0; font-weight: bold;">
+                                            {conf_percentage:.1f}%
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            """, unsafe_allow_html=True)
+                            
+                            # Add detailed breed information for top prediction (expanded for high confidence)
+                            expanded_state = is_valid_cattle  # Expand for high confidence, collapse for low confidence
+                            with st.expander(f"📖 Learn more about {breed.title()}", expanded=expanded_state):
+                                if breed_info:
+                                    col1, col2 = st.columns([1, 1])
+                                    
+                                    with col1:
+                                        st.markdown("**🏞️ Origin & Location:**")
+                                        if breed_info.get("breeding_tract"):
+                                            tract = breed_info["breeding_tract"]
+                                            st.write(f"• **State:** {tract.get('state', 'Not specified')}")
+                                            if tract.get('districts'):
+                                                districts = ", ".join(tract["districts"][:3])  # Show first 3 districts
+                                                if len(tract["districts"]) > 3:
+                                                    districts += f" and {len(tract['districts']) - 3} more"
+                                                st.write(f"• **Districts:** {districts}")
+                                        
+                                        if breed_info.get("also_known_as"):
+                                            st.markdown("**📝 Also Known As:**")
+                                            st.write(f"• {', '.join(breed_info['also_known_as'])}")
+                                    
+                                    with col2:
+                                        st.markdown("**🐄 Physical Characteristics:**")
+                                        if breed_info.get("physical_characteristics"):
+                                            phys = breed_info["physical_characteristics"]
+                                            if phys.get("color"):
+                                                st.write(f"• **Color:** {phys['color']}")
+                                            if phys.get("horns"):
+                                                st.write(f"• **Horns:** {phys['horns']}")
+                                            if phys.get("size_and_body"):
+                                                st.write(f"• **Body:** {phys['size_and_body']}")
+                                    
+                                    # Additional information in full width
+                                    if breed_info.get("milk_yield"):
+                                        st.markdown("**🥛 Milk Production:**")
+                                        st.info(breed_info["milk_yield"])
+                                    
+                                    if breed_info.get("utility"):
+                                        st.markdown("**🎯 Primary Use:**")
+                                        st.success(breed_info["utility"])
+                                    
+                                    if breed_info.get("special_facts"):
+                                        st.markdown("**✨ Special Facts:**")
+                                        st.warning(breed_info["special_facts"])
+                                else:
+                                    st.info(f"📚 Detailed information for **{breed.title()}** is not available in our database yet. We are continuously updating our breed information.")
+                        elif i == 1:
+                            # Silver medal for second prediction
+                            st.markdown(f"""
+                            <div style="background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+                                       padding: 15px; border-radius: 12px; margin: 10px 0;
+                                       box-shadow: 0 4px 8px rgba(0,0,0,0.1); border-left: 5px solid #C0C0C0;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <p style="color: white; font-size: 1.2em; margin: 0; font-weight: bold;">
+                                            🥈 #{i+1}: {breed.title()}
+                                        </p>
+                                        <p style="color: #e0e0e0; font-size: 0.9em; margin: 3px 0 0 0;">
+                                            Alternative Prediction
+                                        </p>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <p style="color: #C0C0C0; font-size: 1.5em; margin: 0; font-weight: bold;">
+                                            {conf_percentage:.1f}%
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            """, unsafe_allow_html=True)
+                            
+                            # Add compact breed information for second prediction
+                            with st.expander(f"📋 Quick info about {breed.title()}", expanded=False):
+                                if breed_info:
+                                    col1, col2 = st.columns([1, 1])
+                                    
+                                    with col1:
+                                        if breed_info.get("breeding_tract", {}).get("state"):
+                                            st.write(f"**📍 Found in:** {breed_info['breeding_tract']['state']}")
+                                        if breed_info.get("physical_characteristics", {}).get("color"):
+                                            color_info = breed_info['physical_characteristics']['color']
+                                            color_short = color_info[:100] + "..." if len(color_info) > 100 else color_info
+                                            st.write(f"**🎨 Color:** {color_short}")
+                                    
+                                    with col2:
+                                        if breed_info.get("milk_yield"):
+                                            milk_info = breed_info["milk_yield"]
+                                            milk_short = milk_info[:80] + "..." if len(milk_info) > 80 else milk_info
+                                            st.write(f"**🥛 Milk:** {milk_short}")
+                                        if breed_info.get("utility"):
+                                            utility_info = breed_info["utility"]
+                                            utility_short = utility_info[:60] + "..." if len(utility_info) > 60 else utility_info
+                                            st.write(f"**🎯 Use:** {utility_short}")
+                                else:
+                                    st.info(f"📚 Information for **{breed.title()}** coming soon!")
+                        else:
+                            # Bronze medal for third prediction
+                            st.markdown(f"""
+                            <div style="background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+                                       padding: 12px; border-radius: 10px; margin: 8px 0;
+                                       box-shadow: 0 3px 6px rgba(0,0,0,0.1); border-left: 4px solid #CD7F32;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <p style="color: white; font-size: 1.1em; margin: 0; font-weight: 600;">
+                                            🥉 #{i+1}: {breed.title()}
+                                        </p>
+                                        <p style="color: #f0e6d2; font-size: 0.85em; margin: 2px 0 0 0;">
+                                            Third Option
+                                        </p>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <p style="color: #CD7F32; font-size: 1.3em; margin: 0; font-weight: bold;">
+                                            {conf_percentage:.1f}%
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            """, unsafe_allow_html=True)
+                            
+                            # Add brief breed information for third prediction
+                            with st.expander(f"ℹ️ Brief info about {breed.title()}", expanded=False):
+                                if breed_info:
+                                    if breed_info.get("breeding_tract", {}).get("state"):
+                                        st.write(f"**📍 Origin:** {breed_info['breeding_tract']['state']}")
+                                    if breed_info.get("utility"):
+                                        st.write(f"**🎯 Primary Use:** {breed_info['utility']}")
+                                    if breed_info.get("special_facts"):
+                                        facts = breed_info["special_facts"]
+                                        facts_short = facts[:120] + "..." if len(facts) > 120 else facts
+                                        st.write(f"**✨ Special:** {facts_short}")
+                                else:
+                                    st.info(f"📚 Info for **{breed.title()}** not available yet.")
+                    
+                    # Create enhanced confidence chart for top 3 predictions
+                    if breeds and confidences:
+                        st.markdown("<h4 style='margin: 25px 0 15px 0;'>📊 Top 3 Confidence Visualization:</h4>", unsafe_allow_html=True)
+                        
+                        # Focus on top 3 predictions only
+                        top_3_breeds = breeds[:3]
+                        top_3_confidences = confidences[:3]
+                        
+                        # Create horizontal bar chart with enhanced styling
+                        fig, ax = plt.subplots(figsize=(12, 5))
+                        y_pos = range(len(top_3_breeds))
+                        
+                        # Enhanced color scheme for top 3 with ranking theme
+                        ranking_colors = ['#0068c9', '#6c757d', '#8B4513']  # Gold, Silver, Bronze theme
+                        
+                        # Convert confidences to percentages for display
+                        conf_percentages = [c * 100 if c <= 1 else c for c in top_3_confidences]
+                        
+                        # Create bars with ranking colors
+                        bars = ax.barh(y_pos, conf_percentages, color=ranking_colors, height=0.7, alpha=0.9)
+                        
+                        # Add enhanced percentage annotations with ranking medals
+                        medals = ['🥇', '🥈', '🥉']
                         for i, bar in enumerate(bars):
                             width = bar.get_width()
-                            # Place text inside the bar if it's wide enough, otherwise outside
+                            # Place text inside bar if wide enough, otherwise outside
                             if width > 30:
                                 ax.text(width/2, bar.get_y() + bar.get_height()/2, 
-                                        f'{confidences[i]:.1%}', ha='center', va='center', 
+                                        f'{medals[i]} {conf_percentages[i]:.1f}%', 
+                                        ha='center', va='center', 
                                         fontsize=14, fontweight='bold', color='white')
                             else:
                                 ax.text(width + 2, bar.get_y() + bar.get_height()/2, 
-                                        f'{confidences[i]:.1%}', ha='left', va='center', 
+                                        f'{medals[i]} {conf_percentages[i]:.1f}%', 
+                                        ha='left', va='center', 
                                         fontsize=14, fontweight='bold', color='black')
                         
-                        # Set chart properties with better formatting
+                        # Enhanced chart properties
                         ax.set_yticks(y_pos)
-                        breed_labels = []
-                        for breed in breeds:
-                            if breed.lower() == 'gir':
-                                breed_labels.append('Gir (Cattle)')
-                            elif breed.lower() == 'murrah':
-                                breed_labels.append('Murrah (Buffalo)')
-                            else:
-                                breed_labels.append(breed.title())
-                        ax.set_yticklabels(breed_labels, fontsize=14, fontweight='bold')
+                        breed_labels = [f"#{i+1}: {breed.title()}" for i, breed in enumerate(top_3_breeds)]
+                        ax.set_yticklabels(breed_labels, fontsize=13, fontweight='bold')
                         ax.set_xlabel('Confidence (%)', fontsize=14, fontweight='bold')
-                        ax.set_title('🎯 Breed Classification Confidence', fontsize=16, fontweight='bold', pad=20)
+                        ax.set_title('🏆 Top 3 Breed Predictions - Confidence Levels', fontsize=16, fontweight='bold', pad=25)
+                        
+                        # Add 85% threshold line with enhanced styling
+                        ax.axvline(x=85, color='#e74c3c', linestyle='--', linewidth=3, alpha=0.9)
+                        ax.text(87, 1, 'Confidence\nThreshold\n(85%)', 
+                                color='#e74c3c', fontsize=11, fontweight='bold',
+                                bbox=dict(boxstyle='round,pad=0.3', facecolor='white', 
+                                         edgecolor='#e74c3c', alpha=0.9))
+                        
+                        # Enhanced styling
+                        ax.set_xlim(0, 105)
+                        ax.set_facecolor('#f8f9fa')
+                        ax.grid(axis='x', alpha=0.4, linestyle='-', linewidth=0.8)
                         ax.spines['top'].set_visible(False)
                         ax.spines['right'].set_visible(False)
                         ax.spines['left'].set_linewidth(2)
                         ax.spines['bottom'].set_linewidth(2)
-                        ax.grid(axis='x', linestyle='-', alpha=0.3, linewidth=1)
                         
-                        # Adjust x-axis limit and add better ticks
-                        ax.set_xlim(0, 105)
-                        ax.set_xticks(range(0, 101, 20))
-                        
-                        # Add a subtle background
-                        ax.set_facecolor('#f8f9fa')
-                    
-                        # Add threshold line at 85% to indicate confidence threshold
-                        ax.axvline(x=85, color='#e74c3c', linestyle='--', linewidth=3, alpha=0.9)
-                        
-                        # Position threshold text better
-                        if len(breeds) > 1:
-                            text_y = 0.5
-                        else:
-                            text_y = 0
-                        
-                        ax.text(87, text_y, '← Confidence\nThreshold\n(85%)', 
-                                color='#e74c3c', fontsize=10, fontweight='bold', 
-                                bbox=dict(boxstyle='round,pad=0.4', facecolor='white', 
-                                         edgecolor='#e74c3c', alpha=0.9, linewidth=2))
-                        
-                        # Set professional styling
-                        fig.patch.set_facecolor('white')
-                        
-                        # Set tick parameters with better colors for readability
-                        ax.tick_params(axis='both', colors='#2c3e50', labelsize=12)
-                        
-                        # Make axes labels more visible with professional colors
-                        ax.xaxis.label.set_color('#2c3e50')
-                        ax.yaxis.label.set_color('#2c3e50')
-                        ax.title.set_color('#2c3e50')
-                        
-                        # Add some padding and adjust layout
                         plt.tight_layout()
-                        
-                        # Show the chart with better formatting
                         st.pyplot(fig, use_container_width=True)
-                    
-                    # Add "Save Record" button only for valid cattle images
-                    if is_valid_cattle:
-                        st.markdown("<hr style='margin: 40px 0; border: 1px solid #e0e0e0;'>", unsafe_allow_html=True)
                         
-                        # Create a professional save section
+                        # Add a quick summary table for top 3 predictions
+                        st.markdown("<h4 style='margin: 20px 0 10px 0;'>📋 Prediction Summary:</h4>", unsafe_allow_html=True)
+                        
+                        # Create summary DataFrame
+                        summary_data = []
+                        for i, (breed, conf) in enumerate(zip(top_3_breeds, top_3_confidences)):
+                            conf_percentage = conf * 100 if conf <= 1 else conf
+                            medal = ['🥇 1st', '🥈 2nd', '🥉 3rd'][i]
+                            status = "✅ High" if conf_percentage >= 85 else "⚠️ Low"
+                            
+                            summary_data.append({
+                                'Rank': medal,
+                                'Breed': breed.title(),
+                                'Confidence': f"{conf_percentage:.1f}%",
+                                'Status': status
+                            })
+                        
+                        summary_df = pd.DataFrame(summary_data)
+                        
+                        # Display with custom styling
+                        st.dataframe(
+                            summary_df,
+                            use_container_width=True,
+                            hide_index=True,
+                            column_config={
+                                "Rank": st.column_config.TextColumn(
+                                    "Rank",
+                                    width="small",
+                                ),
+                                "Breed": st.column_config.TextColumn(
+                                    "Predicted Breed",
+                                    width="medium",
+                                ),
+                                "Confidence": st.column_config.TextColumn(
+                                    "Confidence Score",
+                                    width="small",
+                                ),
+                                "Status": st.column_config.TextColumn(
+                                    "Confidence Level",
+                                    width="small",
+                                )
+                            }
+                        )
+                    
+                    # Save results section (only for high confidence predictions)
+                    if is_valid_cattle:
+                        st.markdown("<hr style='margin: 30px 0; border: 1px solid #e0e0e0;'>", unsafe_allow_html=True)
+                        
+                        # Professional save section
                         st.markdown("""
-                        <div style="background: linear-gradient(90deg, #0068c9 0%, #004c9c 100%); 
-                                    padding: 20px; border-radius: 15px; margin: 20px 0;">
-                            <h3 style="color: white; margin: 0; text-align: center; font-size: 1.3em;">
-                                💾 Save to Bharat Pashudhan App (BPA)
+                        <div class="highlight-box">
+                            <h3 style="color: white; margin: 0; text-align: center;">
+                                💾 Save Classification Results
                             </h3>
-                            <p style="color: #e8f4f8; margin: 8px 0 0 0; text-align: center; font-size: 1.0em;">
-                                Save classification results in BPA-compatible format
+                            <p style="color: #e8f4f8; margin: 8px 0 0 0; text-align: center;">
+                                Save prediction results to CSV database
                             </p>
                         </div>
                         """, unsafe_allow_html=True)
                         
-                        # Center the button
+                        # Add save button
                         col1, col2, col3 = st.columns([1, 2, 1])
                         with col2:
-                            if st.button("📋 Save to BPA Database", 
-                                        key="save_bpa",
-                                        help="Save prediction results to BPA-compatible CSV format",
+                            if st.button("💾 Save Classification Results", 
+                                        key="save_results",
+                                        help="Save prediction results to CSV database",
                                         use_container_width=True, 
                                         type="primary"):
                                 csv_file = save_to_csv(prediction_result, image)
                                 st.balloons()
-                                st.success("✅ Successfully saved to BPA-compatible format!")
-                            
-                                # Show latest records
+                                st.success("✅ Results saved successfully!")
+                                
+                                # Show recent records
                                 if os.path.exists(csv_file):
-                                    st.markdown("<h4 class='dark-mode-compatible' style='margin:20px 0 10px 0;'>Recent Records</h4>", unsafe_allow_html=True)
+                                    st.markdown("<h4 style='margin:20px 0 10px 0;'>📋 Recent Records</h4>", unsafe_allow_html=True)
                                     df = pd.read_csv(csv_file)
                                     
-                                    # Filter to only show valid cattle records
-                                    if 'Valid_Cattle' in df.columns:
-                                        df = df[df['Valid_Cattle'] == True]
+                                    # Display last 3 records
+                                    display_df = df.tail(3)[['Timestamp', 'Image_Filename', 'Primary_Breed', 'Primary_Confidence']]
+                                    display_df['Primary_Confidence'] = display_df['Primary_Confidence'].apply(lambda x: f"{x:.1%}")
                                     
-                                    # Format the dataframe for better display
-                                    display_df = df.tail(5)[['Timestamp', 'Image_Filename', 'Primary_Breed', 'Primary_Confidence']]
-                                    display_df = display_df.rename(columns={
-                                        'Timestamp': 'Date & Time',
-                                        'Image_Filename': 'Image',
-                                        'Primary_Breed': 'Breed',
-                                        'Primary_Confidence': 'Confidence'
-                                    })
-                                    
-                                    # Format confidence as percentage
-                                    display_df['Confidence'] = display_df['Confidence'].apply(lambda x: f"{x:.2%}")
-                                    
-                                    # Display styled dataframe
                                     st.dataframe(
                                         display_df,
                                         use_container_width=True,
                                         hide_index=True
                                     )
+
             
             except Exception as e:
                 st.error(f"Error during prediction: {str(e)}")
@@ -511,7 +1075,97 @@ def main():
 
     # Model Performance Tab
     with tab2:
-        st.header("Model Performance Analysis")
+        st.markdown("<h2 style='text-align: center; margin-bottom: 30px;'>📊 Model Performance Analysis</h2>", unsafe_allow_html=True)
+        
+        # Model information
+        predictor = load_predictor()
+        if predictor:
+            col1, col2, col3 = st.columns(3)
+            
+            with col1:
+                st.markdown("""
+                <div class="info-box">
+                    <h4>🎯 Model Accuracy</h4>
+                    <p><strong>Validation:</strong> {:.1f}%</p>
+                    <p><strong>Test:</strong> 88.91%</p>
+                </div>
+                """.format(predictor.best_accuracy), unsafe_allow_html=True)
+            
+            with col2:
+                st.markdown(f"""
+                <div class="info-box">
+                    <h4>📝 Model Details</h4>
+                    <p><strong>Architecture:</strong> MobileNetV2</p>
+                    <p><strong>Classes:</strong> {len(predictor.classes)}</p>
+                </div>
+                """, unsafe_allow_html=True)
+            
+            with col3:
+                st.markdown("""
+                <div class="info-box">
+                    <h4>⚙️ Configuration</h4>
+                    <p><strong>Input Size:</strong> 224×224</p>
+                    <p><strong>Threshold:</strong> 85%</p>
+                </div>
+                """, unsafe_allow_html=True)
+            
+            # Class distribution
+            st.markdown("<h3 style='margin-top: 30px;'>📋 Supported Cattle Breeds</h3>", unsafe_allow_html=True)
+            
+            # Create a DataFrame with breed information
+            breeds_info = []
+            for i, breed in enumerate(predictor.classes):
+                breeds_info.append({
+                    'Breed Name': breed.title(),
+                    'Index': i,
+                    'Category': 'Cattle Breed'
+                })
+            
+            breeds_df = pd.DataFrame(breeds_info)
+            st.dataframe(breeds_df, use_container_width=True, hide_index=True)
+            
+            # Performance comparison
+            st.markdown("<h3 style='margin-top: 30px;'>📈 Model Comparison Results</h3>", unsafe_allow_html=True)
+            
+            comparison_data = {
+                'Model Version': ['Original MobileNetV2', 'Enhanced MobileNetV2'],
+                'Validation Accuracy (%)': [89.49, 59.48],
+                'Status': ['✅ Selected', '❌ Rejected'],
+                'Performance': ['High', 'Low']
+            }
+            
+            comparison_df = pd.DataFrame(comparison_data)
+            st.dataframe(comparison_df, use_container_width=True, hide_index=True)
+            
+            # Create comparison chart
+            fig, ax = plt.subplots(figsize=(10, 6))
+            models = comparison_data['Model Version']
+            accuracies = comparison_data['Validation Accuracy (%)']
+            colors = ['#0068c9', '#fa4b42']
+            
+            bars = ax.bar(models, accuracies, color=colors, alpha=0.8)
+            
+            # Add value labels on bars
+            for bar, acc in zip(bars, accuracies):
+                height = bar.get_height()
+                ax.text(bar.get_x() + bar.get_width()/2., height + 1,
+                        f'{acc:.1f}%', ha='center', va='bottom', fontweight='bold')
+            
+            ax.set_ylabel('Validation Accuracy (%)', fontweight='bold')
+            ax.set_title('Model Performance Comparison', fontsize=16, fontweight='bold', pad=20)
+            ax.set_ylim(0, 100)
+            ax.grid(axis='y', alpha=0.3)
+            
+            # Add threshold line
+            ax.axhline(y=85, color='#e74c3c', linestyle='--', linewidth=2, alpha=0.8)
+            ax.text(0.5, 87, 'Confidence Threshold (85%)', ha='center', 
+                    color='#e74c3c', fontweight='bold')
+            
+            plt.tight_layout()
+            st.pyplot(fig, use_container_width=True)
+        
+        else:
+            st.error("Model not loaded. Please check the model files.")
         
         st.subheader("Confusion Matrix")
         st.write("""
@@ -560,18 +1214,24 @@ def main():
                                 
                                 # Get prediction
                                 try:
-                                    result = predict_breed(img_path)
+                                    predictor = load_predictor()
+                                    result = predictor.predict_single(img_path)
+                                    
+                                    if 'error' in result:
+                                        predictions = []
+                                    else:
+                                        predictions = result['top_predictions']
                                     
                                     # Get predicted breed
-                                    if "Prediction 1" in result:
-                                        pred_breed = result["Prediction 1"]["breed"]
-                                        confidence = result["Prediction 1"]["confidence"]
+                                    if predictions:
+                                        pred_breed = predictions[0]['breed']
+                                        confidence = predictions[0]['percentage']
                                     else:
                                         pred_breed = "unknown"
                                         confidence = 0.0
                                     
-                                    # Check if it's valid cattle
-                                    is_valid_cattle = result.get('valid_cattle', True)
+                                    # Check if it's valid cattle (confidence > 50%)
+                                    is_valid_cattle = confidence > 50
                                     
                                     # If not valid cattle, mark as non_cattle
                                     if not is_valid_cattle:

@@ -1,0 +1,2148 @@
+{
+  "buffalo_breeds": [
+    {
+      "name": "Banni",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Gujarat",
+        "districts": ["Kachchh", "Sabarkantha", "Surendranagar", "Kheda", "Banaskantha"]
+      },
+      "physical_characteristics": {
+        "color": "Mainly black, sometimes copper.",
+        "horns": "Typical coiled horns.",
+        "size_and_body": "Medium to large body size."
+      },
+      "milk_yield": null
+    },
+    {
+      "name": "Bargur",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Tamil Nadu",
+        "districts": ["Bargur hills"]
+      },
+      "physical_characteristics": {
+        "color": "Varies from black to light brown or brownish-black. Greyish white stockings from carpal/tarsal joint to fetlock are present predominantly in females.",
+        "horns": null,
+        "size_and_body": "Small size (about 102cm in height), adapted for hilly terrain."
+      },
+      "milk_yield": "1.5 to 2.0 liters per day, mainly for household consumption."
+    },
+    {
+      "name": "Bhadawari",
+      "also_known_as": ["Etawah"],
+      "breeding_tract": {
+        "state": "Uttar Pradesh and Madhya Pradesh",
+        "districts": ["Yamuna, Chambal and Utangan river areas"]
+      },
+      "physical_characteristics": {
+        "color": "Blackish copper to light copper, with wheat straw-like color over the legs.",
+        "horns": "Black, curling slightly outward and downward before running parallel backward near the neck and finally turning upward.",
+        "size_and_body": null
+      },
+      "special_facts": "Famous for their efficient ability to utilize low quality coarse fodder."
+    },
+    {
+      "name": "Chhattisgarhi",
+      "also_known_as": ["Desi"],
+      "breeding_tract": {
+        "state": "Chhattisgarh",
+        "districts": []
+      },
+      "utility": "Draught, meat, and milk. Bullocks are preferred for ploughing rice fields.",
+      "physical_characteristics": {
+        "color": "Mostly black, sometimes grey.",
+        "horns": "Large and heavy, curved laterally backwards and then going up with tip pointing upwards.",
+        "size_and_body": "Medium sized with a straight head."
+      },
+      "milk_yield": "Average lactation yield is 1180 kg (ranges from 1100 to 1300 kg)."
+    },
+    {
+      "name": "Chilika",
+      "also_known_as": ["Deshi"],
+      "breeding_tract": {
+        "state": "Odisha",
+        "districts": ["Surrounding the Chilika lake"]
+      },
+      "utility": "Milk, manure, and draught.",
+      "physical_characteristics": {
+        "color": "Brownish black or black.",
+        "horns": "Black, straight, curved upward and inward.",
+        "size_and_body": "Medium sized with compact body, strong legs, and small udder."
+      },
+      "special_facts": "Feed on submerged weeds and aquatic vegetation in the salty waters of Chilika lake."
+    },
+    {
+      "name": "Gojri",
+      "also_known_as": ["Desi"],
+      "breeding_tract": {
+        "state": "Punjab and Himachal Pradesh",
+        "districts": ["Gurdaspur, Hoshiarpur, Rupnagar, SAS Nagar (Mohali) in Punjab", "Kangra and Chamba in Himachal Pradesh"]
+      },
+      "utility": "Milk and draught.",
+      "physical_characteristics": {
+        "color": "Brown or black.",
+        "horns": "Curved.",
+        "size_and_body": "Head is straight."
+      },
+      "special_facts": "Adapted to foothills, can travel long distances and climb hills easily while grazing. Significant for the livelihood of Gujjars.",
+      "milk_yield": "Average lactation yield is 1000 kg (ranges from 800 to 1200 kg)."
+    },
+    {
+      "name": "Jaffarabadi",
+      "also_known_as": ["Bhavanagri", "Gir", "Jaffari"],
+      "breeding_tract": {
+        "state": "Gujarat",
+        "districts": ["Saurashtra region around Gir forest"]
+      },
+      "physical_characteristics": {
+        "color": "Generally black, some animals have a white or grey tail switch.",
+        "horns": "Flat, thick, downwardly curved horns that sometimes cover eyelids. They emerge by compressing the head, go downward sideways, then upward and inward, forming a ring-like structure.",
+        "size_and_body": "Big dome-shaped forehead. Male animals weigh up to 700 kgs (average), and females may weigh 620 kgs (average)."
+      },
+      "milk_yield": "Average milk yield is 2239 kg per lactation."
+    },
+    {
+      "name": "Kalahandi",
+      "also_known_as": ["Deshi"],
+      "breeding_tract": {
+        "state": "Odisha",
+        "districts": ["Kalahandi", "Rayagada"]
+      },
+      "physical_characteristics": {
+        "color": "Blackish grey to grey. Muzzle, eyelids, tail, and hooves are black.",
+        "horns": "Go horizontally backward, upward, and inward to make a half-circle appearance.",
+        "size_and_body": "Head is convex, hump is small, and the udder is round and medium in size."
+      },
+      "milk_yield": "Moderate, ranging from 680 to 912 kg per lactation."
+    },
+    {
+      "name": "Luit (Swamp)",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Assam, Manipur, Mizoram, Nagaland",
+        "districts": ["Upper Brahmaputra valley of Assam including Jorhat, Sibsagar, Lakimpur, Dibrugarh, Tinsukia, Dhemaji, Golaghat, Majuli, and Biswanath districts."]
+      },
+      "physical_characteristics": {
+        "color": "Mainly black.",
+        "horns": "Distinct semi-circular horns.",
+        "size_and_body": "Medium sized, strongly built with a prominent wither, short tail, broad and concave forehead, prominent eyes, and wide muzzle."
+      }
+    },
+    {
+      "name": "Marathwadi",
+      "also_known_as": ["Ellichpuri", "Dudhana Thadi"],
+      "breeding_tract": {
+        "state": "Maharashtra",
+        "districts": ["Parbhani", "Nanded", "Beed", "Jalna", "Latur"]
+      },
+      "physical_characteristics": {
+        "color": "Greyish black to jet black.",
+        "horns": "Medium in length (average 43 cms) and parallel to the neck, reaching up to the shoulder but never beyond.",
+        "size_and_body": null
+      },
+      "milk_yield": "Average lactation milk yield is 1118 kg, with an average milk fat of 8.8%."
+    },
+    {
+      "name": "Mehsana",
+      "also_known_as": ["Mahesani", "Mehsani"],
+      "breeding_tract": {
+        "state": "Gujarat",
+        "districts": ["Mehsana", "Sabarkantha", "Banaskantha", "Ahmedabad", "Gandhinagar"]
+      },
+      "physical_characteristics": {
+        "color": "Mostly black, a few are black-brown or brown.",
+        "horns": "Generally sickle-shaped, less curved and upward.",
+        "size_and_body": null
+      },
+      "milk_yield": "Ranges between 598 to 3597 kg per lactation."
+    },
+    {
+      "name": "Murrah",
+      "also_known_as": ["Delhi", "Kundi", "Kali"],
+      "breeding_tract": {
+        "state": "Haryana and Delhi",
+        "districts": ["Hisar", "Rohtak", "Gurgaon", "Jind"]
+      },
+      "physical_characteristics": {
+        "color": "Jet black with occasional white marking on the switch of the tail.",
+        "horns": "Short and tightly coiled.",
+        "size_and_body": "Massive body, long head and neck, well-developed udder, and broad hips."
+      }
+    },
+    {
+      "name": "Nagpuri",
+      "also_known_as": ["Berari", "Gaorani", "Ellichpuri", "Puranthadi", "Varhadi", "Gaolavi", "Arvi", "Gaolaogan", "Gangauri", "Shahi", "Chanda"],
+      "breeding_tract": {
+        "state": "Maharashtra",
+        "districts": ["Akola", "Amravati", "Yavatmal", "Wardha", "Nagpur"]
+      },
+      "physical_characteristics": {
+        "color": "Black with white patches on face, legs, and tail tips. The 'Puranthadi' strain is slightly brown.",
+        "horns": "Long, flat, and curved, bending backward on each side of the neck nearly up to the shoulders with tips pointed mostly in an upward direction.",
+        "size_and_body": null
+      },
+      "special_facts": "Well-adapted to the harsh climate of the Vidarbha region."
+    },
+    {
+      "name": "Nili Ravi",
+      "also_known_as": ["Panch Kalyani"],
+      "breeding_tract": {
+        "state": "Punjab",
+        "districts": ["Belt between the Sutlej and Ravi rivers"]
+      },
+      "physical_characteristics": {
+        "color": "Black with white markings on forehead, face, muzzle, legs, and tail. They have walled eyes.",
+        "horns": "Small and coiled tightly.",
+        "size_and_body": "The head is elongated, bulging at the top, and depressed between the eyes. The neck is long, thin, and fine."
+      },
+      "special_facts": "The name Nili is supposed to have been derived from the blue water of the river Sutlej."
+    },
+    {
+      "name": "Pandharpuri",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Maharashtra",
+        "districts": ["Solapur", "Sangli", "Kolhapur"]
+      },
+      "physical_characteristics": {
+        "color": "Usually black, but varies from light to deep black. White markings are found on the forehead, legs, and tail in a few animals.",
+        "horns": "Very long and extend beyond the shoulder blade, sometimes up to the pin bones.",
+        "size_and_body": "The nasal bone is very prominent, long, and straight."
+      },
+      "milk_yield": "On an average 1790 kg of milk per lactation."
+    },
+    {
+      "name": "Surti",
+      "also_known_as": ["Charotari", "Deccani", "Gujarati", "Nadiadi", "Talabda"],
+      "breeding_tract": {
+        "state": "Gujarat",
+        "districts": ["Vadodara", "Bharuch", "Kheda", "Surat"]
+      },
+      "physical_characteristics": {
+        "color": "Coat color varies from rusty brown through silver-grey to black. Skin is black or brown.",
+        "horns": "Flat, sickle-shaped, and are directed downward and backward, and then turn upward at the tip to form a hook.",
+        "size_and_body": "Lighter in body weight."
+      },
+      "special_facts": "Popular with landless, small, and marginal farmers as they consume less feed and produce milk with high fat and SNF content."
+    },
+    {
+      "name": "Toda",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Tamil Nadu",
+        "districts": ["Nilgiri hills"]
+      },
+      "physical_characteristics": {
+        "color": "Adults are predominantly fawn and ash-grey. Calves are generally fawn at birth and change to ash-grey around 2 months of age.",
+        "horns": "Long, variable in shape, and thick at the base.",
+        "size_and_body": "A narrow band of dense hair covers the top line from the crest of the neck to the tail."
+      },
+      "special_facts": "Thrives well in high rainfall and high humid areas.",
+      "milk_yield": "Average lactation milk yield is around 500 kg with an average fat of 8.22%."
+    }
+  ],
+  "cattle_breeds": [
+    {
+      "name": "Amritmahal",
+      "also_known_as": ["Doddadana", "Jawari Dana", "Number Dana"],
+      "breeding_tract": {
+        "state": "Karnataka",
+        "districts": ["Chikmagalur", "Chitradurga", "Hassan", "Shimoga", "Tumkur", "Davanagere"]
+      },
+      "utility": "Famous draught breed known for its power and endurance.",
+      "physical_characteristics": {
+        "color": "Usually Grey, but varies from white to almost black. White grey markings on face and dewlap. Dark shades on neck, shoulder, hump, and hindquarters.",
+        "horns": "Long, emerge from the top of the poll, fairly close together in a backward and upward direction, turn in and end in sharp black points, sometimes touching each other.",
+        "size_and_body": "Head is long and tapers towards the muzzle. Animals are fiery and active."
+      },
+      "milk_yield": "Poor milkers. Average milk yield per lactation is 572 kg."
+    },
+    {
+      "name": "Bachaur",
+      "also_known_as": ["Bhutia"],
+      "breeding_tract": {
+        "state": "Bihar",
+        "districts": ["Sitamarhi", "Darbhanga", "Madhubani"]
+      },
+      "utility": "Draught breed.",
+      "physical_characteristics": {
+        "color": "Grey or greyish white.",
+        "horns": "Medium-sized and stumpy, curving outward, upward, and then downward.",
+        "size_and_body": "Compact with straight backs. The forehead is broad and flat or slightly convex."
+      },
+      "special_facts": "Ability to thrive on poor fodder resources.",
+      "milk_yield": "Average milk yield per lactation is 347 kg."
+    },
+    {
+      "name": "Badri",
+      "also_known_as": ["Pahadi"],
+      "breeding_tract": {
+        "state": "Uttarakhand",
+        "districts": ["Nainital", "Almora", "Bageshwar", "Pithoragarh", "Champawat", "Pauri Garhwal", "Tehri Garhwal", "Rudraprayag", "Uttarkashi", "Chamoli"]
+      },
+      "physical_characteristics": {
+        "color": "Commonly Black, Brown, or Grey; rarely white in females.",
+        "horns": "Curved-upward and inward.",
+        "size_and_body": "Small sized, active, and sure-footed. Straight forehead with a prominent poll, medium to large hump. Udder is small and tucked up with the body."
+      },
+      "milk_yield": "Average milk yield per lactation is 632 kg."
+    },
+    {
+      "name": "Bargur",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Tamil Nadu",
+        "districts": ["Bargur hills in Bhavani taluk of Erode district"]
+      },
+      "utility": "Draught cattle breed.",
+      "physical_characteristics": {
+        "color": "Brown with white markings over the body.",
+        "horns": "Light brown, emerge closer at the root and are inclined backward, outward, and upward with a forward curve, which is sharp at the tip.",
+        "size_and_body": null
+      },
+      "milk_yield": "Average milk yield per lactation is reported as 350 kg (ranges from 250-1300 kg)."
+    },
+    {
+      "name": "Belahi",
+      "also_known_as": ["Morni", "Desi"],
+      "breeding_tract": {
+        "state": "Haryana and Chandigarh",
+        "districts": ["Ambala", "Panchkula", "Yamunanagar"]
+      },
+      "physical_characteristics": {
+        "color": "Most common colors are Reddish-brown, Grey, or white. The face and extremities are white.",
+        "horns": "Sickle-shaped, curving upwards and inwards.",
+        "size_and_body": "Medium sized with a uniform but distinct body colour pattern. Head is straight and broad with a prominent poll."
+      },
+      "milk_yield": "Average standard lactation yield is 1014 Kg (ranging from 182 to 2092 Kgs)."
+    },
+    {
+      "name": "Binjharpuri",
+      "also_known_as": ["Deshi"],
+      "breeding_tract": {
+        "state": "Odisha",
+        "districts": ["Jajpur", "Kendrapara", "Bhadrak"]
+      },
+      "physical_characteristics": {
+        "color": "Chiefly white. Some animals are Grey, Black, or Brown. In males, the hump, neck, and some regions of the face and back are black, irrespective of their coat color.",
+        "horns": "Medium in size and curved upward and inward.",
+        "size_and_body": "Medium sized and strong."
+      },
+      "milk_yield": "Ranges from 915-1350 kg per lactation with milk fat ranging from 4.3-4.4%."
+    },
+    {
+      "name": "Dagri",
+      "also_known_as": ["Gujarat Malvi"],
+      "breeding_tract": {
+        "state": "Gujarat",
+        "districts": ["Godhara/Panch Mahals", "Dahod", "Narmada", "Chhotaudepur", "Mahisagar"]
+      },
+      "physical_characteristics": {
+        "color": "Mainly white, sometimes with a grey shade.",
+        "horns": "Short, thin, curved upward in a lyre shape or in a straight fashion with a pointed tip.",
+        "size_and_body": "Small sized with a compact body. Body length is proportionally more than height. Have a straight forehead."
+      },
+      "milk_yield": "Cows give a less amount of milk. The average milk yield per lactation is 316 kg."
+    },
+    {
+      "name": "Dangi",
+      "also_known_as": ["Kandadi"],
+      "breeding_tract": {
+        "state": "Gujarat and Maharashtra",
+        "districts": ["Dangs district of Gujarat", "Thane, Nasik, Ahmednagar districts of Maharashtra"]
+      },
+      "physical_characteristics": {
+        "color": "Distinct white coat colour with red or black spots distributed unevenly over the body.",
+        "horns": "Short and thick with lateral pointing tips. Some have inward or downward pointing horn tips.",
+        "size_and_body": "The head is usually small with a slightly protruding forehead."
+      },
+      "milk_yield": "Average milk yield per lactation is 430 kg."
+    },
+    {
+      "name": "Deoni",
+      "also_known_as": ["Surti", "Dongarpati", "Dongri", "Wannera", "Waghyd", "Balankya", "Shevera"],
+      "breeding_tract": {
+        "state": "Maharashtra",
+        "districts": ["Balaghat range of Sahyadri hills extending from Kannad taluk of Aurangabad to Deglur taluk of Marathwada region"]
+      },
+      "physical_characteristics": {
+        "color": "Usually spotted black and white. Has three strains: Balankya (complete white), Wannera (complete white with partial black face), and Waghyd or Shevera (black and white spotted).",
+        "horns": "Small sized, emerge from the side of the poll behind and above the eyes in an outward and upward direction. The tips are blunt.",
+        "size_and_body": "Characterized by drooping ears and a prominent & slightly bulging forehead."
+      },
+      "milk_yield": "The average milk yield per lactation is 868 kg."
+    },
+    {
+      "name": "Gangatiri",
+      "also_known_as": ["Eastern Hariana", "Shahabadi"],
+      "breeding_tract": {
+        "state": "Bihar and Uttar Pradesh",
+        "districts": ["Bhojpur district of Bihar", "Varanasi, Mirzapur, Ghazipur, and Ballia districts of Uttar Pradesh"]
+      },
+      "physical_characteristics": {
+        "color": "Complete white (Dhawar) or Grey (Sokan). Eyelids, muzzle, hooves, and tail switch are generally black.",
+        "horns": "Medium sized, emerge from the side of the poll behind and above eyes, curving upwards and inwards ending with pointed tips.",
+        "size_and_body": "The forehead is prominent, straight, and broad with a shallow groove in the middle."
+      },
+      "milk_yield": "Average milk yield in a lactation is around 1050 Kg."
+    },
+    {
+      "name": "Gaolao",
+      "also_known_as": ["Arvi", "Gaulgani"],
+      "breeding_tract": {
+        "state": "Madhya Pradesh, Chhattisgarh, Maharashtra",
+        "districts": ["Balaghat, Chhindwara, Seoni districts of Madhya Pradesh", "Durg and Rajnandgaon districts of Chhattisgarh", "Wardha and Nagpur districts of Maharashtra"]
+      },
+      "physical_characteristics": {
+        "color": "Blackish white in males and white in females. Males are generally grey over the neck.",
+        "horns": "Short, stumpy, and curved slightly backward.",
+        "size_and_body": "Head is markedly long and tapers towards the muzzle. Forehead recedes at the top, giving a slightly convex appearance."
+      },
+      "milk_yield": "Low, with an average of 604 kg per lactation."
+    },
+    {
+      "name": "Ghumusari",
+      "also_known_as": ["Deshi"],
+      "breeding_tract": {
+        "state": "Odisha",
+        "districts": ["Ganjam district and adjoining areas of Phulbani district"]
+      },
+      "physical_characteristics": {
+        "color": "Chiefly white, but sometimes shades of grey are also visible.",
+        "horns": "Medium sized, mostly curved upward and inward, but some animals have straight horns.",
+        "size_and_body": "Small sized and strong in build. Small head with a flat, broad forehead, depressed in between the eyes."
+      },
+      "milk_yield": "Ranges from 450-650 kg per lactation."
+    },
+    {
+      "name": "Gir",
+      "also_known_as": ["Bhodali", "Desan", "Gujarati", "Kathiawari", "Sorthi", "Surati"],
+      "breeding_tract": {
+        "state": "Gujarat",
+        "districts": ["Saurashtra region, Gir forest"]
+      },
+      "physical_characteristics": {
+        "color": "Red, though some animals are speckled red.",
+        "horns": "Peculiarly curved. They take a sideways downward and backward curve, then incline a little upward and forward taking a spiral inward sweep, ending in a fine taper, giving a half-moon appearance.",
+        "size_and_body": "Long and pendulous ears folded like a leaf."
+      },
+      "milk_yield": "Average lactation yield is 2110 kg."
+    },
+    {
+      "name": "Hallikar",
+      "also_known_as": ["Mysore"],
+      "breeding_tract": {
+        "state": "Karnataka",
+        "districts": ["Mysore", "Mandya", "Bangalore", "Kolar", "Tumkur", "Hassan", "Chitradurga"]
+      },
+      "physical_characteristics": {
+        "color": "White to light grey. Young breeding bulls have dark shades on shoulder and hindquarters. White markings or irregular patches around the eyes, cheeks, neck, or shoulder region.",
+        "horns": "Emerge near each other from top of poll and are carried straight, upward and backward, then orient slightly forward and inward with pointed tips.",
+        "size_and_body": null
+      },
+      "milk_yield": "Average milk yield per lactation is 542 kg (ranging from 227-1134 kg)."
+    },
+    {
+      "name": "Hariana",
+      "also_known_as": ["Hisar", "Hansi"],
+      "breeding_tract": {
+        "state": "Haryana",
+        "districts": ["Hisar", "Rohtak", "Sonepat", "Gurgaon", "Jind", "Jhajjar"]
+      },
+      "physical_characteristics": {
+        "color": "White or light grey. In bulls, the color between fore and hind quarters is relatively dark or dark grey.",
+        "horns": "Small horns.",
+        "size_and_body": "Coffin-shaped skull, long and narrow face, well-marked bony prominence at the center of the poll."
+      },
+      "milk_yield": "Good cows can produce up to 1700 kg of milk in a lactation."
+    },
+    {
+      "name": "Himachali Pahari",
+      "also_known_as": ["Pahari", "Desi", "Local", "Gauri", "Himdhenu"],
+      "breeding_tract": {
+        "state": "Himachal Pradesh",
+        "districts": ["Chamba", "Kangra", "Kinnaur", "Kullu", "Mandi", "Shimla", "Sirmaur", "Lahul", "Spiti"]
+      },
+      "physical_characteristics": {
+        "color": "Primarily black and blackish brown.",
+        "horns": "Medium sized, mainly curved in a lateral and upward direction.",
+        "size_and_body": "Small to medium sized with a compact cylindrical body, short legs, medium hump, horizontally placed ears, and a comparatively long tail."
+      },
+      "milk_yield": "Low, with an average of 538 kg per lactation."
+    },
+    {
+      "name": "Kangayam",
+      "also_known_as": ["Kanganad", "Kongu"],
+      "breeding_tract": {
+        "state": "Tamil Nadu",
+        "districts": ["Coimbatore", "Erode", "Dindigul", "Karur", "Namakkal"]
+      },
+      "physical_characteristics": {
+        "color": "Usually grey or white. Coat is red at birth, changes to grey at about 6 months. Males are grey with black or dark grey markings on the head, neck, hump, and quarters. Cows are generally white and grey with deep markings on the knees and above the fetlocks.",
+        "horns": "Long and strong, take a backward, outward, and upward sweep and then curve inward with tips tending to meet, forming a crescent shape.",
+        "size_and_body": "Dark eyes with prominent black rings around them."
+      }
+    },
+    {
+      "name": "Kankrej",
+      "also_known_as": ["Wadad", "Waged", "Vagadia", "Talabda", "Nagar", "Bonnai"],
+      "breeding_tract": {
+        "state": "Gujarat",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Varies from silver grey to iron grey and steel black. In males, forequarters, hindquarters, and hump are slightly darker.",
+        "horns": "Lyre-shaped.",
+        "size_and_body": "Large, pendulous ears. The hump in males is well-developed. Forehead is broad and slightly dished in the center. Face is short and the nose is slightly upturned."
+      },
+      "special_facts": "Resistant to tick fever and heat stress."
+    },
+    {
+      "name": "Kenkatha",
+      "also_known_as": ["Kenwaria"],
+      "breeding_tract": {
+        "state": "Madhya Pradesh and Uttar Pradesh",
+        "districts": ["Tikamgarh district of Madhya Pradesh", "Lalitpur, Hamirpur, and Banda districts of Uttar Pradesh"]
+      },
+      "utility": "Mainly for draught purposes.",
+      "physical_characteristics": {
+        "color": "Varying from grey on the barrel to dark grey on the rest of the body.",
+        "horns": "Emerge from the outer angles of the poll in a forward direction and end in sharp points.",
+        "size_and_body": "Small, sturdy, and powerful."
+      }
+    },
+    {
+      "name": "Khariar",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Odisha",
+        "districts": ["Nuapada", "Kalahandi", "Balangir"]
+      },
+      "utility": "Draught purpose in hilly and undulated terrain.",
+      "physical_characteristics": {
+        "color": "Mainly brown and sometimes grey. Hump, neck, and some regions of the face and back are dark in colour.",
+        "horns": "Straight and often emerge upward and inward.",
+        "size_and_body": "Small sized and of strong build."
+      },
+      "milk_yield": "Ranges from 300 to 450 Kg with 4 to 5% Fat."
+    },
+    {
+      "name": "Kherigarh",
+      "also_known_as": ["Kheri", "Kharigarh", "Khari"],
+      "breeding_tract": {
+        "state": "Uttar Pradesh",
+        "districts": ["Kheri district"]
+      },
+      "utility": "Bullocks are very good for draught purposes and can run very fast.",
+      "physical_characteristics": {
+        "color": "White coat colour. Some animals have grey colour, especially on the face.",
+        "horns": "Upstanding, curving outward and upward, and thick at the base.",
+        "size_and_body": "Small but active."
+      },
+      "milk_yield": "Ranges from 300 to 500 kg."
+    },
+    {
+      "name": "Konkan Kapila",
+      "also_known_as": ["Konkan gidda", "Konkan"],
+      "breeding_tract": {
+        "state": "Maharashtra",
+        "districts": ["Thane", "Raigadh", "Ratnagiri", "Sindhudurg", "Palghar"]
+      },
+      "physical_characteristics": {
+        "color": "Variety of colours like reddish-brown, black, white, grey, and mixed. Eyelids, muzzle, hoof, and tail switch are generally black.",
+        "horns": "Generally straight, emerge from the side of the poll in an outward direction and go upwards and backwards, ending with pointed tips.",
+        "size_and_body": "Small to medium sized with a compact body, horizontal ears, and a straight forehead."
+      }
+    },
+    {
+      "name": "Khillar",
+      "also_known_as": ["Mandeshi", "Shikari", "Thillar"],
+      "breeding_tract": {
+        "state": "Karnataka and Maharashtra",
+        "districts": ["Belgaum, Bijapur, Dharwad, Gulbarga, Bangalkote district of Karnataka", "Pune, Satara, Sangli, Solapur, Kolhapur, Osmanabad district of Maharashtra"]
+      },
+      "physical_characteristics": {
+        "color": "Males are dark over the fore & hind quarters with peculiar grey and white mottled marking on the face.",
+        "horns": "Long and pointed, following the backward curve of the forehead, close together at the root with a thick base.",
+        "size_and_body": "The ribs are well sprung, giving the trunk a barrel shape. The gait is quick and spirited."
+      }
+    },
+    {
+      "name": "Kosali",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Chhattisgarh",
+        "districts": ["Raipur", "Durg", "Bilaspur", "Janjgir"]
+      },
+      "physical_characteristics": {
+        "color": "Light red, followed by whitish-grey. Muzzle, eyelids, tail switch, and hooves are black.",
+        "horns": "Stumpy, emerging straight, then going outward, upward, and inward from the polls.",
+        "size_and_body": "Head is broad, flat, and straight. Hump is small to medium in size."
+      },
+      "special_facts": "Maintained particularly by the Yadava/Rawuth community.",
+      "milk_yield": "Ranges from 200 to 250 kg."
+    },
+    {
+      "name": "Krishna Valley",
+      "also_known_as": ["Kistna Valley"],
+      "breeding_tract": {
+        "state": "Karnataka and Maharashtra",
+        "districts": ["Belgaum, Raichur, and Bijapur districts of Karnataka", "Satara, Sangli, and Solapur districts of Maharashtra"]
+      },
+      "physical_characteristics": {
+        "color": "Commonly grey-white with a darker shade on fore & hindquarters in males. Adult females are more whitish. Brown & white, black & white, and mottled colours are often seen.",
+        "horns": "Small in size and curved, usually emerging in an outward direction from the outer angles of the poll, curving slightly upward and inward.",
+        "size_and_body": null
+      }
+    },
+    {
+      "name": "Ladakhi",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Jammu & Kashmir",
+        "districts": ["Leh", "Kargil"]
+      },
+      "utility": "Draught breed. Milk is an important protein source for local people.",
+      "physical_characteristics": {
+        "color": "Mostly black, followed by brown.",
+        "horns": "Mostly curved, directed slightly upward and forward, ending with pointed tips over the forehead.",
+        "size_and_body": "Small statured with short legs and a compact body. Small hairy forehead with a slightly long face. Small hump."
+      },
+      "special_facts": "Adapted to mountainous terrains.",
+      "milk_yield": "Produces around 2 to 5 kg of milk per day."
+    },
+    {
+      "name": "Lakhimi",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Assam",
+        "districts": ["Entire state"]
+      },
+      "utility": "Dual purpose breed.",
+      "physical_characteristics": {
+        "color": "Variable, mainly between brown and grey.",
+        "horns": "Straight.",
+        "size_and_body": "Small sized, horned, with relatively short legs. Hump is medium in size, and the backline is slightly curved. Udder is small and bowel-shaped."
+      }
+    },
+    {
+      "name": "Malnad Gidda",
+      "also_known_as": ["Gidda", "Uradana", "Varshagandhi"],
+      "breeding_tract": {
+        "state": "Karnataka",
+        "districts": ["Chikmagalur", "Dakshin Kannada", "Hassan", "Kodagu", "Shimoga", "Uttar Kannada", "Udupi"]
+      },
+      "physical_characteristics": {
+        "color": "Predominantly black with light shades of fawn on the thigh and shoulder region. Tail switch is black.",
+        "horns": "Generally small, straight, outward, upward, and inward.",
+        "size_and_body": "Small with a compact body frame, adult animals are around 90cm tall. Hump is small, udder is also small and bowl-shaped."
+      }
+    },
+    {
+      "name": "Malvi",
+      "also_known_as": ["Mahadeopuri", "Manthani"],
+      "breeding_tract": {
+        "state": "Madhya Pradesh",
+        "districts": ["Rajgarh", "Shajapur", "Ratlam", "Ujjain"]
+      },
+      "utility": "Well known for quick transportation, endurance, and ability to carry a heavy load on rough roads.",
+      "physical_characteristics": {
+        "color": "White or white-greyish, darker in males, with neck, shoulders, hump, and quarters almost black.",
+        "horns": "Curved and emerge from the outer angle of the poll in an outward and upward direction.",
+        "size_and_body": null
+      },
+      "milk_yield": "Average milk yield is around 916 Kg per lactation."
+    },
+    {
+      "name": "Mewati",
+      "also_known_as": ["Kosi", "Mehwati"],
+      "breeding_tract": {
+        "state": "Haryana, Rajasthan, Uttar Pradesh",
+        "districts": ["Gurgaon and Faridabad districts of Haryana", "Alwar and Bharatpur Districts of Rajasthan", "Mathura District of Uttar Pradesh"]
+      },
+      "physical_characteristics": {
+        "color": "Usually white with neck, shoulders, and quarters of a darker shade.",
+        "horns": "Small to medium in size, emerge outwards, upwards, and then inwards in the majority of animals, with pointed tips.",
+        "size_and_body": "Face is long and narrow with a straight, sometimes slightly bulging forehead."
+      },
+      "milk_yield": "Average lactation yield is around 958 Kg."
+    },
+    {
+      "name": "Motu",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Odisha, Chhattisgarh, Andhra Pradesh",
+        "districts": ["Malkangiri district"]
+      },
+      "physical_characteristics": {
+        "color": "Mainly brown (reddish) and sometimes grey. A few animals are white.",
+        "horns": null,
+        "size_and_body": "Small sized but strong in build."
+      },
+      "milk_yield": "Meagre, ranges from 100 to 140 Kg."
+    },
+    {
+      "name": "Nagori",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Rajasthan",
+        "districts": ["Bikaner", "Jodhpur", "Nagaur"]
+      },
+      "physical_characteristics": {
+        "color": "White and grey.",
+        "horns": "Moderate in size, emerge from the outer angles of the poll in an outward direction.",
+        "size_and_body": "Upstanding, long, deep, and powerful frames with straight backs. The face is long and narrow, but the forehead is flat. Eyelids are heavy and overhanging, and the eyes are small, clear, and bright. Ears are large and pendulous."
+      },
+      "milk_yield": "Average milk yield per lactation is 603 kg."
+    },
+    {
+      "name": "Nimari",
+      "also_known_as": ["Khargaon", "Khargoni", "Khurgoni"],
+      "breeding_tract": {
+        "state": "Madhya Pradesh",
+        "districts": ["Khargaon (West Nimar)", "Badwani"]
+      },
+      "physical_characteristics": {
+        "color": "Red with large white splashes.",
+        "horns": "Usually emerge in a backward direction from the outer angles of the poll.",
+        "size_and_body": "Massive body, convex forehead."
+      },
+      "milk_yield": "Average milk yield of the breed is 767 Kg per lactation."
+    },
+    {
+      "name": "Nari",
+      "also_known_as": ["Sirohi"],
+      "breeding_tract": {
+        "state": "Gujarat and Rajasthan",
+        "districts": ["Banaskantha and Sabarkantha districts of Gujarat", "Pali and Sirohi districts of Rajasthan"]
+      },
+      "physical_characteristics": {
+        "color": "Varies from white or greyish-white. Bulls are either white, greyish-white, or black.",
+        "horns": "Spirally curved & outward/forward in orientation, long, and thick at the bottom and pointed at the tips.",
+        "size_and_body": "Medium in size. Forehead is broad and slightly concave."
+      },
+      "milk_yield": "Medium to moderate. Average lactation yield is 1647 kg (ranges from 1118 to 2222 kg)."
+    },
+    {
+      "name": "Ongole",
+      "also_known_as": ["Nellore"],
+      "breeding_tract": {
+        "state": "Andhra Pradesh",
+        "districts": ["East Godavari", "Guntur", "Ongole", "Nellore", "Kurnool"]
+      },
+      "physical_characteristics": {
+        "color": "Glossy white coat. Males possess dark markings on the head, neck, and hump, and black points on knees and pastern.",
+        "horns": "Short and stumpy, growing outward and backward from the outer angles of the poll, thick at the base. In cows, horns are thinner than in bulls.",
+        "size_and_body": "Identifiable by its majestic gait, stumpy horns, and large fan-shaped and fleshy dewlap."
+      },
+      "milk_yield": "Moderate, with an average of 798 kg."
+    },
+    {
+      "name": "Poda Thurpu",
+      "also_known_as": ["Thurpu"],
+      "breeding_tract": {
+        "state": null,
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "White coat colour with brown patches or Red/brown coat with white patches.",
+        "horns": "Mostly straight, sometimes curved backward and upward or forward pointing and broad at the base.",
+        "size_and_body": "Forehead is convex with a deep groove at the center."
+      },
+      "milk_yield": "Average lactation yield of the cow is 570 kg."
+    },
+    {
+      "name": "Ponwar",
+      "also_known_as": ["Purnea"],
+      "breeding_tract": {
+        "state": "Uttar Pradesh",
+        "districts": ["Pilibhit district"]
+      },
+      "physical_characteristics": {
+        "color": "Black and white patches are intermixed.",
+        "horns": "Medium sized, which generally emerge outward, upward and then curve inward with pointed tips.",
+        "size_and_body": null
+      },
+      "milk_yield": "Females are generally not milked. Average yield of 459 Kg per lactation."
+    },
+    {
+      "name": "Pulikulam",
+      "also_known_as": ["Palingu maadu", "Mani maadu", "Jallikattu maadu", "Mattu maadu", "Kilakattu maadu"],
+      "breeding_tract": {
+        "state": "Tamil Nadu",
+        "districts": ["Madurai", "Sivaganga", "Virudhunagar"]
+      },
+      "physical_characteristics": {
+        "color": "Males are dark grey while females are white or grey. Muzzle, eyelids, tail switch, and hooves are black.",
+        "horns": "Curved outward, upward, backward, and then inward, ending with pointed tips spaced wide apart.",
+        "size_and_body": "Small sized with a compact body and short legs. Forehead is broad and has a groove at the center. Hump is large in males and small in females. Udder is not well developed."
+      },
+      "milk_yield": "About 1.25 Kg per day."
+    },
+    {
+      "name": "Punganur",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Andhra Pradesh",
+        "districts": ["Punganur", "Vayalpad", "Madnapalli", "Palamaner in Chittoor district"]
+      },
+      "physical_characteristics": {
+        "color": "White mixed with red, brown, or black coloured patches.",
+        "horns": "Short, crescent-shaped, and often loose, curving backwards and forwards in males and lateral and forward in females.",
+        "size_and_body": "Dwarf body. Back sloping downwards from front to hindquarters. Tail touches the ground. Broad forehead."
+      },
+      "milk_yield": "Average milk yield is 546 Kg per lactation."
+    },
+    {
+      "name": "Purnea",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Bihar",
+        "districts": ["Madhepura", "Purnia", "Katihar", "Araria", "Kishanganj", "Supaul"]
+      },
+      "physical_characteristics": {
+        "color": "Primarily grey, followed by red and black.",
+        "horns": "Straight and mostly carried upwards, sometimes laterally.",
+        "size_and_body": "Small sized breed. Head is medium in size, medium hump, small to medium dewlap, small naval flap, and small to medium sized udder. Most have a flat poll."
+      },
+      "milk_yield": "Average lactation yield is 609 kg (ranges from 452 to 785 kg)."
+    },
+    {
+      "name": "Rathi",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Rajasthan",
+        "districts": ["Bikaner", "Ganganagar", "Jaisalmer"]
+      },
+      "physical_characteristics": {
+        "color": "Usually brown or black with white patches all over the body.",
+        "horns": "Curving outward, upward, and inward, and are short to medium in size.",
+        "size_and_body": null
+      },
+      "milk_yield": "Efficient and good milkers. On average, produce 1560 kg of milk."
+    },
+    {
+      "name": "Red Sindhi",
+      "also_known_as": ["Malir", "Red Karachi", "Sindhi"],
+      "breeding_tract": {
+        "state": "Orissa, Tamil Nadu, Bihar, Kerala, Assam",
+        "districts": []
+      },
+      "utility": "Milch cattle breed.",
+      "physical_characteristics": {
+        "color": "Red, with shades varying from dark red to dim yellow. Occasionally small white patches are seen on the dewlap and forehead.",
+        "horns": "Thick at the base and emerge laterally and curve upward.",
+        "size_and_body": null
+      },
+      "special_facts": "Heat tolerant.",
+      "milk_yield": "Ranges from 1100 to 2600 kg/lactation."
+    },
+    {
+      "name": "Red Kandhari",
+      "also_known_as": ["Lakhalbunda"],
+      "breeding_tract": {
+        "state": "Maharashtra",
+        "districts": ["Ahmadnagar", "Parbhani", "Beed", "Nanded", "Latur"]
+      },
+      "utility": "Draught breed.",
+      "physical_characteristics": {
+        "color": "Uniform deep dark red, but variations from a dull red to almost brown are also found. Bulls are a shade darker than cows.",
+        "horns": "Evenly curved and medium sized.",
+        "size_and_body": null
+      },
+      "milk_yield": "Fair quantity of milk with an average of 598 Kg per lactation."
+    },
+    {
+      "name": "Sahiwal",
+      "also_known_as": ["Lambi Bar", "Lola", "Montgomery", "Multani", "Teli"],
+      "breeding_tract": {
+        "state": "Punjab and Rajasthan",
+        "districts": ["Ferozpur and Amritsar districts of Punjab", "Sri Ganganagar district of Rajasthan"]
+      },
+      "physical_characteristics": {
+        "color": "Cows are brownish red. Bulls are darker than the rest of the body colour.",
+        "horns": "Shorter horns.",
+        "size_and_body": "Well-developed udder, good slope at the rump. Dewlap is medium in size."
+      },
+      "milk_yield": "Average lactation yield is 2325 kg."
+    },
+    {
+      "name": "Shweta Kapila",
+      "also_known_as": ["Gaunthi/Gavthi dhavi"],
+      "breeding_tract": {
+        "state": "Goa",
+        "districts": ["North and South Goa"]
+      },
+      "physical_characteristics": {
+        "color": "Mostly complete white, which extends from muzzle to tail switch, including eyelashes and muzzle (whitish-brown).",
+        "horns": "Mostly straight and may be slightly curved upward and outward.",
+        "size_and_body": "Short to medium statured animal with a straight face and small to medium hump."
+      },
+      "milk_yield": "Average lactation yield is 510 kg."
+    },
+    {
+      "name": "Siri",
+      "also_known_as": ["Trahbum"],
+      "breeding_tract": {
+        "state": "West Bengal and Sikkim",
+        "districts": ["Darjeeling district of West Bengal", "Sikkim north, Gyalshing, Namchi, Gangtok, Sikkim east, Sikkim south, and Sikkim west"]
+      },
+      "physical_characteristics": {
+        "color": "Either black or brown with white patches; totally black or brown animals are also seen.",
+        "horns": "Medium sized and curved outward, forward, and slightly upward with sharp and pointed tips.",
+        "size_and_body": "Small sized. The hump is cervico-thoracic type with a tuft of hair on it."
+      },
+      "milk_yield": "Averaging around 425.8 kg per lactation."
+    },
+    {
+      "name": "Tharparkar",
+      "also_known_as": ["White Sindhi", "Grey Sindhi", "Thari"],
+      "breeding_tract": {
+        "state": "Gujarat and Rajasthan",
+        "districts": ["Kutchchh district of Gujarat", "Barmer, Jaisalmer, and Jodhpur districts of Rajasthan"]
+      },
+      "physical_characteristics": {
+        "color": "White and light grey coat. Face and extremities are darker than the rest of the body. In bulls, neck, hump, and fore and hind quarters are also dark. The colour gets darker during winter.",
+        "horns": null,
+        "size_and_body": "Medium sized and compact."
+      },
+      "milk_yield": "Average yield of 1749 kg per lactation."
+    },
+    {
+      "name": "Thutho",
+      "also_known_as": ["Ameshi", "Sheapi", "Chokru", "Tseso"],
+      "breeding_tract": {
+        "state": null,
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Black or brown, sometimes with white patches on the face and body.",
+        "horns": "Curved outward and upward. Short and stumpy.",
+        "size_and_body": "Medium in size, hardy, well-built, and docile. Forehead is small and straight. Backline is uneven, slopes behind the small hump, rises to a peak between the hipbones, and then drops sharply to the tail head."
+      }
+    },
+    {
+      "name": "Umblachery",
+      "also_known_as": ["Jathimadu", "Mottaimadhu", "Molaimadhu", "Southern", "Tanjore", "Therkuthimadhu"],
+      "breeding_tract": {
+        "state": "Tamil Nadu",
+        "districts": ["Nagapatinam", "Thiruvarur"]
+      },
+      "physical_characteristics": {
+        "color": "Red at birth and thereafter changes to grey during development. Males are dark grey with black extremities, whereas cows are grey with light dark grey areas in the face, neck, and hip regions. Seen with white markings on face, limb, and tail, with the marking on the leg resembling socks.",
+        "horns": null,
+        "size_and_body": null
+      },
+      "milk_yield": "Average recorded milk yield is 494 Kg per lactation."
+    },
+    {
+      "name": "Vechur",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Kerala",
+        "districts": ["Alappuzha", "Kottayam", "Pathanamthitta", "Kasargode"]
+      },
+      "physical_characteristics": {
+        "color": "Light red, black, or fawn and white. In bulls, the colour in between fore and hindquarters is relatively dark or dark grey.",
+        "horns": "Small, thin, curving forward and downward. In some cases, they are extremely small and are hardly visible.",
+        "size_and_body": null
+      },
+      "special_facts": "Considered to be the smallest cattle breed in the world.",
+      "milk_yield": "Average milk yield is 561 Kg per lactation."
+    }
+  ],
+  "goat_breeds": [
+    {
+      "name": "Assam Hill",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Assam and Meghalaya",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Mostly white with occasional black patches on backline and legs.",
+        "horns": "Short cylindrical horns which are directed upwards and outwards.",
+        "size_and_body": "Short legged with small body size. Both buck and does are bearded. Ears are medium in size, horizontally placed with pointed tips."
+      }
+    },
+    {
+      "name": "Attappady",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Kerala",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Black body.",
+        "horns": "Black horns with curved, backward-oriented tips. Male and female species have horns.",
+        "size_and_body": "Lean, slender body. Black, pendulous ears and a bunchy, curved tail."
+      }
+    },
+    {
+      "name": "Barbari",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Rajasthan and Uttar Pradesh",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "White with tan spots / dark red spots.",
+        "horns": "Twisted, directed upward and outward, medium in size. Short erect horns.",
+        "size_and_body": "Small sized animals. Small tubular and prick ears."
+      }
+    },
+    {
+      "name": "Beetal",
+      "also_known_as": ["Lahori goat"],
+      "breeding_tract": {
+        "state": "Punjab",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Black coat or brown with white spots of different sizes.",
+        "horns": "Medium in size (about 12 cm), carried horizontally with a slight twist, directed backward and upward.",
+        "size_and_body": "Tall animals, having a roman nose and long ears (24.8 cm)."
+      }
+    },
+    {
+      "name": "Berari",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Maharashtra",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Light to dark (Reddish colour). A black coloured ring around the neck is seen in adult males. Black hair line along the vertebral column extending up to the tail in both sexes.",
+        "horns": "Flat, small, oriented upward and backward.",
+        "size_and_body": null
+      }
+    },
+    {
+      "name": "Bhakarwali",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Jammu & Kashmir",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Face or hindquarters are black in some animals. Pure black goats are also found. Whole body is covered with long hair.",
+        "horns": "Screw type and are carried upwards and backward.",
+        "size_and_body": "Large-sized goats with a convex head. Ears are cut and pendulous."
+      }
+    },
+    {
+      "name": "Bidri",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Karnataka",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Black. Muzzle, eyelids, and hooves are black.",
+        "horns": "Present and are directed backward, outward, and downward.",
+        "size_and_body": "Ears are pendulous."
+      }
+    },
+    {
+      "name": "Black Bengal",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "West Bengal, Odisha, Assam, Manipur, Meghalaya, Tripura, Arunachal Pradesh",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Predominantly black. Brown, grey, and white are also found.",
+        "horns": "Small to medium size horn (5.8 to 11.5 cm), directed upward and sometimes backward.",
+        "size_and_body": "Small-legged goat. Hair coat is short and lustrous. Nose line is slightly depressed."
+      }
+    },
+    {
+      "name": "Changthangi",
+      "also_known_as": ["Pashmina goat", "Changra goat"],
+      "breeding_tract": {
+        "state": "Jammu and Kashmir",
+        "districts": []
+      },
+      "utility": "Raised for both meat and valuable cashmere (pashmina).",
+      "physical_characteristics": {
+        "color": "Most often white, but is also seen in black, grey, or brown.",
+        "horns": "Large twisted horns.",
+        "size_and_body": null
+      }
+    },
+    {
+      "name": "Chegu",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Himachal Pradesh and Jammu and Kashmir",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "White, black, grey, brown, and a mixture of these colours are common. Reddish/tan/black coloration mostly around the head & neck, and abdominal areas.",
+        "horns": "Long, cork-shaped, directed upward, backward, and inward/outward. Average length is about 59 cm in males and 33 cm in females.",
+        "size_and_body": "Compact body. Face and muzzle are tapering, possess long hair below with a second coat of pashmina wool."
+      }
+    },
+    {
+      "name": "Gaddi",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Himachal Pradesh",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Mostly white, but some animals with black, brown, or tan markings are also found.",
+        "horns": "Both sexes have long spiral horns directed upward and backward with pointed tips.",
+        "size_and_body": "The ears are long and drooping."
+      }
+    },
+    {
+      "name": "Ganjam",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Odisha",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Black or Brown. White and spotted animals are also found.",
+        "horns": "Twisted and curved. Long, parallel, and pointed backward and upward.",
+        "size_and_body": "Head is convex, ears are pendulous and medium in size (14.50 cm). Males usually have beards. Wattles are mostly absent."
+      }
+    },
+    {
+      "name": "Gohilwadi",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Gujarat",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Black.",
+        "horns": "Slightly twisted and turned backward. 8 to 10cm long in females and 12cm to 15 cm in males.",
+        "size_and_body": "Body covered with coarse long hairs. Nose line is slightly convex. Ears are tubular and drooping."
+      }
+    },
+    {
+      "name": "Jakhrana",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Rajasthan",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Predominantly black with white spots on ears and muzzle.",
+        "horns": "Broad and flat, going backwards.",
+        "size_and_body": "Straight face line. Forehead is narrow and slightly bulging. Udder size is large with conical teats."
+      }
+    },
+    {
+      "name": "Jamunapari",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Uttar Pradesh and Madhya Pradesh",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "White with patches of tan or black, mostly on the head and neck.",
+        "horns": "Short and sword-shaped.",
+        "size_and_body": "Face is large and convex, having a tuft of hairs. Ears are large, pendulous, drooping, and about 30 cm long."
+      }
+    },
+    {
+      "name": "Kahmi",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Gujarat",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Unique coat color: neck and face are reddish-brown while the rear abdominal part is black.",
+        "horns": "Directed upwards and backwards.",
+        "size_and_body": "Forehead is convex. Ears are long, tubular & coiled. Wattles are present in the majority of goats."
+      }
+    },
+    {
+      "name": "Kanniadu",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Tamilnadu",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Black with white markings on the face & legs. White stripes on either side of the face extending from the base of the horn to the corner of the muzzle.",
+        "horns": "Broad and small, going backwards.",
+        "size_and_body": null
+      }
+    },
+    {
+      "name": "Kodi Adu",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Tamilnadu",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Two colour variants: Chem-Porai (white with varying degrees of reddish-brown) and Karum-Porai (white with varying splashes of black).",
+        "horns": null,
+        "size_and_body": "Tall, long, lean, and leggy animals with a compact body."
+      }
+    },
+    {
+      "name": "Konkan Kanyal",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Maharashtra",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Black with white marking on the collar, lower jaw, and ventral surface. Bilateral white strips from nostrils to ear. Legs are laterally black, medially white, and white from knee to fetlock joint. Tail is dorsally black and ventrally white.",
+        "horns": "Cylindrical, backward, and medium in size (15-25 cm).",
+        "size_and_body": "Long legs."
+      }
+    },
+    {
+      "name": "Kutchi",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Gujarat and Rajasthan",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Predominantly black, but a few white, brown, and spotted animals are also seen.",
+        "horns": "Short (10.6 cm), thick, and pointed upwards.",
+        "size_and_body": "Long and coarse hair, slightly roman nose."
+      }
+    },
+    {
+      "name": "Malabari",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Kerala",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Black, Brown, White, or a mixture of these colours.",
+        "horns": "Slightly twisted, directed outward and upward. Small in size.",
+        "size_and_body": "Medium sized ears, directed outward and downward."
+      }
+    },
+    {
+      "name": "Marwari",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Rajasthan",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Predominantly black. In a few animals, white or brown patches are present.",
+        "horns": "Pointed short horns (about 10 cm), directed upward and backward.",
+        "size_and_body": "Long shaggy hair coat. Flat, medium sized, and drooping ears."
+      }
+    },
+    {
+      "name": "Mehsana",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Gujarat",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Black with white ear base. White spots are present on the upper part of the upper muzzle and look like a ring in some animals.",
+        "horns": "Twisted slightly, curved upward and backward, and pointed at the tips. 12-15 cm in males and 8-12 cm in females.",
+        "size_and_body": "Hair coat is long and shaggy. Ears have white spots ranging from a few to complete white with a few black spots at the base."
+      }
+    },
+    {
+      "name": "Nandidurga",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Karnataka",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "White. Muzzle, eyelids, and hooves are black.",
+        "horns": "Directed backward, downward, and inward, touching the neck in a few animals.",
+        "size_and_body": "Ears are leafy and pendulous."
+      }
+    },
+    {
+      "name": "Osmanabadi",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Maharashtra",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Predominantly black. White colour is noticed only on ears and some spots on the neck and forehead. Some are reddish.",
+        "horns": "Straight, curved, and small in size (about 13 cm).",
+        "size_and_body": "Five types available based on color and horns (horned/polled)."
+      }
+    },
+    {
+      "name": "Pantja",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": null,
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Mix of light brown & white in females, and males are a mix of white.",
+        "horns": "Straight, oriented backwards. Small in size.",
+        "size_and_body": "Long hairs on thigh region."
+      },
+      "special_facts": "Well adapted to the humid conditions of the Tarai region."
+    },
+    {
+      "name": "Rohilkhandi",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": null,
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Predominantly black with a star or patch on the neck and face in some animals.",
+        "horns": "Curved, and directed laterally and outwardly.",
+        "size_and_body": "Forehead is slightly convex. A tuft of hair (black or brown) is present in the thigh region. Tail is bunchy. Beard and wattles are absent in both sexes."
+      }
+    },
+    {
+      "name": "Salem Black",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Tamil Nadu",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Black.",
+        "horns": "Both males and females have horns that are medium in size, curved upwards and backwards.",
+        "size_and_body": "Tall, lean, and leggy. Ears are medium, semi-pendulous with a leaf-like appearance. In males, the neck is thick, broad, and well-placed."
+      }
+    },
+    {
+      "name": "Sangamneri",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Maharashtra",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "White, black, or brown. Spotted animals are also seen.",
+        "horns": "Directed backward and upward. Average length is 12.36cm.",
+        "size_and_body": "Hair coat is extensively coarse and short."
+      }
+    },
+    {
+      "name": "Sirohi",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Rajasthan and Gujarat",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Predominantly brown with light or dark brown patches. A few individuals are completely white.",
+        "horns": "Curved upward and backward, small in size (7.7 cm).",
+        "size_and_body": "Flat and leaf-like drooping ears."
+      }
+    },
+    {
+      "name": "Sumi-Ne",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Nagaland",
+        "districts": []
+      },
+      "utility": "Reared mainly for its silky fibre.",
+      "physical_characteristics": {
+        "color": "White with black patches on head, neck, and legs.",
+        "horns": "Pointed, small-sized, and curved backwards.",
+        "size_and_body": "Medium sized. Head is straight. Ears are horizontal."
+      }
+    },
+    {
+      "name": "Surti",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Gujarat",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Mostly White.",
+        "horns": "Directed backward. Small in size (about 12 cm).",
+        "size_and_body": "Medium sized ears. Well-developed udder with large conical teats."
+      }
+    },
+    {
+      "name": "Teressa",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Andaman & Nicobar",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Brownish or dark tan or black or white with white and black patches. Black hairs on the dorsal midline up to the tail. Black colored muzzle, eyelids, and hoofs. Peculiar white Patch/line starting from the inner canthus of both eyes.",
+        "horns": "Large Horn with a Flat base.",
+        "size_and_body": "Generally tall."
+      }
+    },
+    {
+      "name": "Zalawadi",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Gujarat",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Body is covered with black, lustrous, shining hairs. Some animals have white or brown hairs.",
+        "horns": "Cork-screw type moving straight upwards, backwards, and slightly outward with pointing tips.",
+        "size_and_body": "Long, wide, leaf-like and drooping ears. Well-developed udder with large conical teats."
+      }
+    }
+  ],
+  "pig_breeds": [
+    {
+      "name": "Ghoongroo",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "West Bengal",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Mostly black.",
+        "bristles": "Thick coarse and long hair coat.",
+        "body": "Long tail, straight top line. Upwardly curved, broad, flattened face with large, heart-shaped ears resembling those of an elephant."
+      }
+    },
+    {
+      "name": "Niang Megha",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Meghalaya",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Black. Star-shaped white patches at forehead and sometime shock joint. Partially white at nostril.",
+        "bristles": "Long bristle on midline but uniform in other places.",
+        "body": "Long tapering snout. Short ears. Top line is straight in males, concave in females."
+      }
+    },
+    {
+      "name": "Agonda Goan",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Goa",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Black. A few animals with white patches on leg and face.",
+        "bristles": "Medium and rough bristle.",
+        "body": "Small body size. Slightly concave top line."
+      },
+      "special_facts": "Well adapted to the local coastal environment."
+    },
+    {
+      "name": "Tenyi Vo",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Nagaland",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Black. White stocking, white markings. Straight tail ending with white switch marking reaching the hock joint.",
+        "bristles": null,
+        "body": "Pot-bellied animals. Sagging back. Pendulous belly touching the ground in females."
+      }
+    },
+    {
+      "name": "Nicobari",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Nicobar islands",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Black, grey, brown, blackish-brown & fawn skin colour.",
+        "bristles": "Marked bristle crest (mane) on the back extending from mid-head/shoulder to the base of the tail.",
+        "body": "Facial profile varies from flat to concave. No curling is the characteristic feature of the tail."
+      },
+      "special_facts": "They are fast runners."
+    },
+    {
+      "name": "Doom",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Assam",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Black.",
+        "bristles": "Long bristles extending up to the thoraco-lumbar area.",
+        "body": "Top line is straight."
+      }
+    },
+    {
+      "name": "Zovawk",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Mizoram",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Black with a white spot on the forehead, white patches on the belly, and white boots.",
+        "bristles": "Long bristles on the mid-line.",
+        "body": "Concave top line. Pot belly."
+      }
+    },
+    {
+      "name": "Ghurrah",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Uttar Pradesh",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Black. Legs below the hock joint are white.",
+        "bristles": "A thick line of hairs is present from neck to shoulders.",
+        "body": "Medium-sized. Flat belly, angular body. Long straight snout. Head is elongated with a triangular face. Short leaf-shaped vertically erected ears."
+      }
+    },
+    {
+      "name": "Mali",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Tripura",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Black.",
+        "bristles": "Medium to small bristles are ubiquitously distributed throughout the body.",
+        "body": "Medium sized pig with a pot belly. Short erect ears lying perpendicular to the body axis and a concave snout."
+      }
+    },
+    {
+      "name": "Purnea",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Bihar and Jharkhand",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Black. In a few animals, white spots at the lower limbs are also seen.",
+        "bristles": "A thick line of bristle is present on the topline from neck to shoulders, giving the animal a wild look.",
+        "body": "Compact body and pot belly. Round face. Short conical and erect ears. Small, thick, and slightly concave snout. Skin is thick with neck folds in mature animals."
+      }
+    }
+  ],
+  "sheep_breeds": [
+    {
+      "name": "Balangir",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": null,
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "White or light brown or mixed colours. A few animals are also black.",
+        "horns": "Found in males only.",
+        "body": "Medium-sized animals. The ears are small and stumpy. Tail is medium long and thin. Legs and belly are devoid of wool.",
+        "fleece": "Extremely coarse, hairy, and open."
+      }
+    },
+    {
+      "name": "Bellary",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Karnataka",
+        "districts": ["Bellary", "Davanagere", "adjoining areas of Haveri and Chitradurga"]
+      },
+      "utility": "Raised for meat purpose.",
+      "physical_characteristics": {
+        "color": "Ranging from white through various combinations of black and white.",
+        "horns": "Found in 30% of males only.",
+        "body": "Strong built and medium-sized animals. Ears are medium long, flat, and drooping."
+      }
+    },
+    {
+      "name": "Bhakarwal",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Jammu & Kashmir",
+        "districts": ["Pir Panjal ranges of the Jammu division in winter, Kashmir Valley in summer."]
+      },
+      "physical_characteristics": {
+        "color": "Generally white, although coloured fleeces are occasionally observed. All animals are spotted fawn or grey.",
+        "horns": "Rams are horned; ewes are polled.",
+        "body": "Medium-sized animals, with a typical roman nose. Ears are long and drooping. Tail is small and thin.",
+        "fleece": "Coarse and open."
+      },
+      "special_facts": "Entirely migratory breed."
+    },
+    {
+      "name": "Bonpala",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": null,
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Mixed colours ranging from all white, white and black, or all black.",
+        "horns": null,
+        "body": "Tall, leggy, well-built animals. Ears are small and tubular. Tail is thin and short. Belly and legs are devoid of wool.",
+        "fleece": "Coarse, hairy, and open."
+      }
+    },
+    {
+      "name": "Changthangi",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Jammu and Kashmir",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Most often white, but is also seen in black, grey, or brown.",
+        "horns": "Large twisted horns.",
+        "body": "Strong built, large-framed.",
+        "fleece": "Good fleece cover with extraordinarily long staple."
+      }
+    },
+    {
+      "name": "Cheevaadu",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Tamilnadu",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Two colour variants: Light brown & Dark Brown or tan.",
+        "horns": "Light brown, curved horizontally outward, backward with a blunt conical apex having a few thick ridges.",
+        "body": null
+      }
+    },
+    {
+      "name": "Chokla",
+      "also_known_as": ["Chhappar", "Shekhawati"],
+      "breeding_tract": {
+        "state": "Rajasthan",
+        "districts": ["Churu", "Nagaur", "Sikar"]
+      },
+      "physical_characteristics": {
+        "color": "Face is reddish-brown or dark brown, and the colour may extend up to the middle of the neck. Skin is pink.",
+        "horns": "Both sexes are polled.",
+        "body": "Light to medium-sized animals. The ears are small to medium in length and tubular. The tail is thin and of medium length.",
+        "fleece": "The coat is dense and relatively fine, covering the entire body including the belly and the greater part of the legs."
+      }
+    },
+    {
+      "name": "Chottnagpuri",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Jharkhand, Bihar",
+        "districts": []
+      },
+      "utility": "Coarse carpet wool breed.",
+      "physical_characteristics": {
+        "color": "Light grey and brown.",
+        "horns": null,
+        "body": "Small, light-weight animals. Ears are small and parallel to the head, the tail is thin and short.",
+        "fleece": "Coarse, hairy, and open."
+      }
+    },
+    {
+      "name": "Coimbatore",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Tamilnadu",
+        "districts": ["Coimbatore district"]
+      },
+      "utility": "Wool purpose breed.",
+      "physical_characteristics": {
+        "color": "White colors, with black or purple colored bands, seen over the regions of head and neck.",
+        "horns": "30% of adult females are free of horns.",
+        "body": "Medium weighed animal. Adult male average body weight 25kg. Adult female average body weight 20kg."
+      }
+    },
+    {
+      "name": "Deccani",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Maharashtra, Karnataka, Andhra Pradesh",
+        "districts": ["Bombay-Deccan region and parts of Karnataka and Andhra Pradesh States"]
+      },
+      "physical_characteristics": {
+        "color": "Colored fleece, black and gray colors being more dominant.",
+        "horns": null,
+        "body": "Small and hardy, and well adapted to poor pastoral conditions."
+      }
+    },
+    {
+      "name": "Gaddi",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Jammu & Kashmir, Himachal Pradesh",
+        "districts": ["Kishtwar and Bhadarwah tehsils of Jammu. Kulu valleys in HP."]
+      },
+      "physical_characteristics": {
+        "color": "Fleece is generally white with brown coloured hair on the face.",
+        "horns": "Rams are horned, ewes hornless.",
+        "body": "Small in size."
+      },
+      "fleece": "Wool is fine and lustrous; average annual yield is 1.13 kg per sheep, clipped thrice a year."
+    },
+    {
+      "name": "Ganjam",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Orissa",
+        "districts": ["Koraput, Phulbani and parts of Puri districts"]
+      },
+      "physical_characteristics": {
+        "color": "Ranging from brown to dark tan. Some animals have white spots on the face and body.",
+        "horns": "Males are horned, females are polled.",
+        "body": "Medium sized. Ears are of medium size and drooping. The nose line is slightly convex. The tail is of medium length and thin.",
+        "fleece": "Hairy and short and not shorn."
+      }
+    },
+    {
+      "name": "Garole",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": null,
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Grey and white are predominant.",
+        "horns": null,
+        "body": "Compact and square body with a small head. Medium ears. Short and thin tail. The udder is fairly developed.",
+        "fleece": "Open, coarse."
+      }
+    },
+    {
+      "name": "Gurez",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Jammu & Kashmir",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Generally white, although some animals are brown or black or have brown or black spots.",
+        "horns": null,
+        "body": "Largest of the sheep breeds in J&K. Tail is thin and short. Ears are long, thin, and pointed.",
+        "fleece": "Generally coarse and hairy."
+      }
+    },
+    {
+      "name": "Hassan",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": null,
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "White body with light brown or black spots.",
+        "horns": "39% of the males are horned; females are usually polled.",
+        "body": "Small to medium animals. Ears are medium-long and drooping.",
+        "fleece": "White, extremely coarse, and open."
+      }
+    },
+    {
+      "name": "Jaisalmeri",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": null,
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Black or dark brown face, the colour extending up to the neck.",
+        "horns": "Both sexes are polled.",
+        "body": "Fairly built square, tall in appearance. Typical roman nose. Long drooping ears, generally with a cartilaginous appendage. The tail is medium to long.",
+        "fleece": "White, of medium carpet quality, and not very dense."
+      }
+    },
+    {
+      "name": "Jalauni",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": null,
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": null,
+        "horns": null,
+        "body": "Medium sized animals. Straight nose line. Ears are large, flat, and drooping. Tail is thin and medium in length. Belly and legs are devoid of wool.",
+        "fleece": "Coarse, short-stapled, and open, generally white."
+      }
+    },
+    {
+      "name": "Kajali",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": null,
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Two types/colour variants: Black (Kali) Kajali (complete black or black-brown or brown body) and White (Chitti) Kajali (complete white coat with a black or dark brown circle/patch around the eyes, and in face and ears).",
+        "horns": null,
+        "body": "Roman nose. Long and pendulous ears. Long tail touching the ground (about 55cm)."
+      }
+    },
+    {
+      "name": "Karnah",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": null,
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Predominantly creamy white.",
+        "horns": "The rams have large curved horns with pointed tips.",
+        "body": "Medium sized animals with a round and compact body. Prominent nose line (roman nose). Ears are pendulous and medium. Tail is thin, straight, and medium."
+      }
+    },
+    {
+      "name": "Katchaikatty",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": null,
+        "districts": []
+      },
+      "utility": "Reared for meat and manure.",
+      "physical_characteristics": {
+        "color": "Black.",
+        "horns": null,
+        "body": "Medium in size with a compact body.",
+        "fleece": "Coat type is hairy."
+      }
+    },
+    {
+      "name": "Kendrapada",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Odisha",
+        "districts": ["Kendrapara", "Cuttack", "Jagatsinghpur", "Bhadrak", "Jajpur"]
+      },
+      "special_facts": "Carries FecB mutation gene responsible for multiple births.",
+      "physical_characteristics": {
+        "color": "Mostly brown.",
+        "horns": "Button type horns in few males.",
+        "body": "Face, Belly, and legs are bare. Rest of the body is covered with Non-Lustrous hair. Animals have horizontal ears. Straight and drooping tail."
+      }
+    },
+    {
+      "name": "Kenguri",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": null,
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Mostly dark brown or coconut colored, but colors from white to black with spots are also observed.",
+        "horns": null,
+        "body": "Medium sized animals. Ears are medium long and drooping. Tail is short and thin."
+      }
+    },
+    {
+      "name": "Kilakarsal",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Tamilnadu",
+        "districts": ["Ramanadhapuram", "Sivagangai", "Thirunelveli"]
+      },
+      "physical_characteristics": {
+        "color": "Black red skin color. Black colored bands are found on the skin in the regions of head, stomach, and legs.",
+        "horns": "Adult male goats are found with stronger coiled horns.",
+        "body": "Medium sized body. Tail is smaller and slender. Majority of the goats are found with a wattle under the jaw/throat."
+      }
+    },
+    {
+      "name": "Madras Red",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Tamil Nadu",
+        "districts": ["Chennai", "Kancheepuram", "Tiruvellore", "Villupuram and adjoining areas of Vellore", "Cuddalore", "Thiruvannamalai"]
+      },
+      "physical_characteristics": {
+        "color": "Predominant brown, the intensity varying from light tan to dark brown; some animals have white markings on the forehead, inside the thigh, and on the lower abdomen.",
+        "horns": "Males are horned and ewes are polled.",
+        "body": "Ears are medium, long, and drooping. Tail is short and thin.",
+        "fleece": "The body is covered with short hairs."
+      },
+      "special_facts": "Hardy and drought tolerant."
+    },
+    {
+      "name": "Magra",
+      "also_known_as": ["Bikaneri Chokhla", "Chakri"],
+      "breeding_tract": {
+        "state": "Rajasthan",
+        "districts": ["Bikaner", "Nagaur", "Jaisalmer", "Churu"]
+      },
+      "physical_characteristics": {
+        "color": "White face with light brown patches around the eyes. Skin colour is pink.",
+        "horns": "Both sexes are polled.",
+        "body": "Medium to large animals. Ears are small to medium and tubular. Tail is medium in length and thin.",
+        "fleece": "Medium carpet quality, extremely white and lustrous, and not very dense."
+      }
+    },
+    {
+      "name": "Malpura",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Rajasthan",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "The typical color of the face is light brown, extending up to the neck.",
+        "horns": "Both sexes are polled.",
+        "body": "Fairly well-built animals with long legs. Ears are short and tubular, with a small cartilaginous appendage on the upper side. Tail is medium to long and thin. Belly and legs are devoid of wool. Adult body weight is 40 kg in males and 30 kg in females.",
+        "fleece": "White fleece, extremely coarse and hairy."
+      }
+    },
+    {
+      "name": "Mandya",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Karnataka",
+        "districts": ["Mandya district"]
+      },
+      "physical_characteristics": {
+        "color": "White - sometimes the face is light brown, which may extend up to the neck.",
+        "horns": "Both sexes polled.",
+        "body": "Relatively small animals. Compact body with typical reversed 'U' shaped conformation from the rear. Ears are long, leafy, and drooping. Adult male weighs 35 kg and female weighs 23 kg.",
+        "fleece": "Coat extremely coarse and hairy."
+      }
+    },
+    {
+      "name": "Marwari",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Rajasthan",
+        "districts": ["Jodhpur", "Jaipur", "Pali", "Barmer"]
+      },
+      "utility": "Coarser carpet variety white wool.",
+      "physical_characteristics": {
+        "color": "Black face.",
+        "horns": null,
+        "body": "Long legs, prominent nose. Fleshy appendages under the throat, known as wattles, are often present. Tail is short and pointed."
+      },
+      "special_facts": "Possess high resistance to disease and worms.",
+      "fleece": "Yield of wool per year is 0.90-1.81 kg per animal."
+    },
+    {
+      "name": "Mecheri",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Tamilnadu",
+        "districts": ["Salem", "Erode", "Karur", "Namakkal", "fewer parts of Dharmapuri"]
+      },
+      "physical_characteristics": {
+        "color": "Pale purplish skin color.",
+        "horns": "No horns for both sexes.",
+        "body": "Medium sized body. Tail is smaller and slender."
+      }
+    },
+    {
+      "name": "Muzzafarnagri",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Uttar Pradesh",
+        "districts": ["Muzaffarnagar district"]
+      },
+      "utility": "Produces a sizeable quantity of wool which is not of fine quality.",
+      "physical_characteristics": {
+        "color": null,
+        "horns": null,
+        "body": "Large sized breed."
+      },
+      "special_facts": "Genetically capable of producing single lamb; only 5% of females give birth to twin lambs."
+    },
+    {
+      "name": "Nali",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Rajasthan",
+        "districts": ["Marwar region"]
+      },
+      "physical_characteristics": {
+        "color": "Face color is light brown, skin color is pink.",
+        "horns": "Both sexes are polled.",
+        "body": "Medium sized animals. Ears are large and leafy (pendulous). Tail is short to medium and thin.",
+        "fleece": "White, coarse, dense, and long-stapled. Forehead, belly, and legs are covered with wool."
+      }
+    },
+    {
+      "name": "Nellore",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Andhra Pradesh",
+        "districts": ["Nellore", "Prakasam", "Ongole"]
+      },
+      "physical_characteristics": {
+        "color": "Majority of the flocks are of fawn or deep red fawn colour.",
+        "horns": "Rams are horned, ewes are polled.",
+        "body": "Tall with little hair except at the brisket, withers, and breech. Long and drooping ears. Majority of animals carry wattles. Long face.",
+        "fleece": "The body is densely covered with short hair."
+      }
+    },
+    {
+      "name": "Nilgiri",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Tamilnadu",
+        "districts": ["Neelagiri district"]
+      },
+      "physical_characteristics": {
+        "color": "Mostly in white colors. Also found with purple spots on their body and face.",
+        "horns": "Females are without horns.",
+        "body": "Medium weighed animal. Ears are broad and drooped out."
+      }
+    },
+    {
+      "name": "Panchali",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": null,
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "White coat color. Head or facial parts are black, blackish-brown, brown, and light brown in color.",
+        "horns": null,
+        "body": "Large in size, have long legs. Ears are long and pendulous. Tail is long. Udder is well-developed."
+      },
+      "special_facts": "Excellent migration ability."
+    },
+    {
+      "name": "Patanwadi",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": null,
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Brown face and spotted tan.",
+        "horns": "Both sexes are polled.",
+        "body": "Medium to large animals with relatively long legs. Typical roman nose. Ears are medium to large, tubular with a hairy tuft. Tail is thin and short.",
+        "fleece": "White fleece is of medium carpet quality, not very dense."
+      }
+    },
+    {
+      "name": "Poonchi",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Jammu & Kashmir",
+        "districts": ["Poonch and Rajouri districts"]
+      },
+      "physical_characteristics": {
+        "color": "Predominantly white, including the face, but spotted sheep are also seen, varying from brown to light black.",
+        "horns": null,
+        "body": "Similar in appearance to Gaddi, but lighter in weight. Ears are medium long. Tail is short and thin. Legs are also short."
+      }
+    },
+    {
+      "name": "Pugal",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Rajasthan",
+        "districts": ["Pugal tehsil of Bikaner district"]
+      },
+      "physical_characteristics": {
+        "color": "Black face with the lower jaw typically light brown. The black color may extend up to the neck.",
+        "horns": "Both sexes are polled.",
+        "body": "Fairly well-built animals. Ears are short and tubular. Tail is short to medium and thin."
+      },
+      "fleece": "White fleece, of medium carpet quality, not very dense."
+    },
+    {
+      "name": "Ramnad White",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Tamilnadu",
+        "districts": ["Ramanadhapuram", "Sivagangai", "Virudhunagar"]
+      },
+      "physical_characteristics": {
+        "color": "Mostly white. Certain goats hold black colored stripes all over their body.",
+        "horns": "Adult males have their bent horns, whereas females are absent of horns.",
+        "body": "Medium sized body. Legs are smaller and slender."
+      }
+    },
+    {
+      "name": "Rampur Bushair",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": null,
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Predominantly white, with brown, black, and tan also seen on the fleece in varying proportions.",
+        "horns": null,
+        "body": "Medium-sized animals. The ears are long and drooping. The face is convex, giving a typical roman nose. Legs, belly, and face are devoid of wool.",
+        "fleece": "Medium quality and dense."
+      }
+    },
+    {
+      "name": "Shahbadi",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Bihar",
+        "districts": ["Bhojpur", "Rohtas", "Buxar", "Patna", "Gaya"]
+      },
+      "physical_characteristics": {
+        "color": "Mostly grey, sometimes with black spots.",
+        "horns": null,
+        "body": "Medium-sized leggy animals. Ears are medium-sized and drooping. Tail is extremely long and thin. Legs and belly are devoid of wool.",
+        "fleece": "Extremely coarse, hairy, and open."
+      }
+    },
+    {
+      "name": "Sonadi",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Rajasthan",
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "White or light brown face with colour extending to the middle of the neck.",
+        "horns": "Both sexes are polled.",
+        "body": "Fairly well built, with long legs. Ears are large, flat, drooping. Tail is thin and medium in length. Udder is fairly well developed. Belly and legs are devoid of wool."
+      }
+    },
+    {
+      "name": "Tibetan",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": null,
+        "districts": []
+      },
+      "physical_characteristics": {
+        "color": "Primarily white with a black or brown face; often brown and white spots are also observed on the body.",
+        "horns": "Both sexes are horned.",
+        "body": "Medium sized animals. The nose line is convex, giving a typical Roman nose. The ears are small, broad, and drooping. The belly, face, and legs are devoid of wool.",
+        "fleece": "Relatively fine and dense."
+      }
+    },
+    {
+      "name": "Tiruchi black",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Tamilnadu",
+        "districts": ["Trichy", "Perambalur", "Dharmapuri", "Salem"]
+      },
+      "physical_characteristics": {
+        "color": "Black coloured all over the body.",
+        "horns": "Adult males are found with horns and females without horns.",
+        "body": "Smaller breeds. Ears are smaller, facing forward and downwards."
+      }
+    },
+    {
+      "name": "Vembur",
+      "also_known_as": [],
+      "breeding_tract": {
+        "state": "Tamilnadu",
+        "districts": ["Vembur, melakarandhai, Keezha Karandhai, Nagalapuram regions", "Tuticorin", "Virudhunagar"]
+      },
+      "physical_characteristics": {
+        "color": "White color skin with red color spots over their body.",
+        "horns": "Adult males are found with horns and absence of horns in case of females.",
+        "body": "Taller breeds. Ears are drooped out. Tail is smaller and slender."
+      }
+    }
+  ]
+}
