@@ -41,8 +41,12 @@ regnety_*.pth
 vit_*.pth
 *.h5
 
-# Model result and comparison files
-*_results.json
+# Model result and comparison files (except mobilenetv2_pytorch_results.json)
+enhanced_*_results.json
+simple_*_results.json
+resnet50_*_results.json
+regnety_*_results.json
+vit_*_results.json
 *_comparison*.json
 *_comparison*.png
 *_comparison*.html
